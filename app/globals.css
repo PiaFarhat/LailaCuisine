@@ -993,6 +993,59 @@ footer p {
   margin: 0.35rem 0;
   color: rgba(255, 253, 248, 0.72);
 }
+.footer-brand {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+}
+
+.footer-brand p:first-child {
+  color: var(--gold);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  margin: 0 0 0.8rem;
+}
+
+.footer-brand p:last-child {
+  color: rgba(255, 253, 248, 0.76);
+  line-height: 1.8;
+}
+
+.footer-grid {
+  max-width: 1050px;
+  margin: 0 auto 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.footer-grid h3 {
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer-grid p,
+.footer-grid a {
+  display: block;
+  color: rgba(255, 253, 248, 0.78);
+  margin: 0.35rem 0;
+}
+
+.footer-grid a:hover {
+  color: var(--gold);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(198, 161, 91, 0.35);
+  padding-top: 1.5rem;
+}
+
+.footer-bottom p {
+  color: rgba(255, 253, 248, 0.6);
+  font-size: 0.9rem;
+}
+
+
 
 /* LAPTOP */
 
@@ -1312,6 +1365,11 @@ footer p {
     max-width: 28rem;
     margin-inline: auto;
     line-height: 1.6;
+  }
+ 
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
   }
 }
 
