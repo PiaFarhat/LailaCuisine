@@ -9,7 +9,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 export default function Home() {
   return (
-    <main>
+    <main className="w-full overflow-hidden">
       <Navbar />
       <Hero />
       <About />
