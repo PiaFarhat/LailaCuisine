@@ -2,10 +2,11 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden px-[clamp(1.25rem,7vw,6rem)] py-[clamp(5rem,8vw,8rem)] text-center [scroll-margin-top:82px] max-lg:py-[5.5rem] max-[480px]:py-[4.5rem]"
+      className="relative isolate overflow-hidden py-[clamp(5rem,8vw,8rem)] text-center [scroll-margin-top:82px] max-lg:py-[5.5rem] max-[480px]:py-[4.5rem]"
     >
-      <p className="eyebrow mb-4">Visit Us</p>
-      <h2 className="mb-6">Contact</h2>
+      <div className="site-container relative z-[2]">
+        <p className="eyebrow mb-4">Visit Us</p>
+        <h2 className="mb-6">Contact</h2>
 
       <address className="relative z-[2] mx-auto my-8 w-[min(680px,100%)] p-[1.35rem] not-italic max-[480px]:p-4">
         <p>Zahle, Lebanon</p>
@@ -27,10 +28,11 @@ export default function Contact() {
         </a>
       </div>
 
-      <div className="relative z-[2]">
-        <h3>Opening Hours</h3>
-        <p>Monday - Sunday</p>
-        <p>12:00 PM - 12:00 AM</p>
+        <div className="relative z-[2]">
+          <h3>Opening Hours</h3>
+          <p>Monday - Sunday</p>
+          <p>12:00 PM - 12:00 AM</p>
+        </div>
       </div>
     </section>
   );

@@ -1,10 +1,23 @@
-import Image from "next/image";
+"use client";
+
+import type { MouseEvent } from "react";
+import { useEffect, useState } from "react";
+
+const menuCategories = [
+  { id: "cold-mezze", label: "Cold Mezze" },
+  { id: "hot-mezze", label: "Hot Mezze" },
+  { id: "mashawi", label: "Mashawi" },
+  { id: "seafood", label: "Seafood" },
+  { id: "lebanese-dishes", label: "Lebanese Main Dishes" },
+  { id: "desserts", label: "Desserts" },
+  { id: "drinks", label: "Drinks" },
+];
 
 export default function Menu() {
-  const separatorImageClass =
-    "relative z-[2] mx-auto mt-[clamp(2.2rem,4.5vw,4rem)] mb-[clamp(1.5rem,2.7vw,2.4rem)] h-[clamp(118px,16vw,220px)] w-[min(100%,1240px)] max-w-[calc(100%_-_2.5rem)] border border-[rgba(198,161,91,0.34)] object-cover object-center opacity-95 shadow-[0_18px_56px_rgba(77,16,39,0.1),inset_0_0_0_1px_rgba(255,253,248,0.25)] [filter:saturate(0.96)_contrast(0.98)] max-md:my-[2.1rem_1.2rem] max-md:h-[clamp(92px,22vw,132px)] max-md:w-full max-md:max-w-full max-md:border-x-0 max-[480px]:h-[88px]";
+  const [activeCategory, setActiveCategory] = useState(menuCategories[0].id);
+
   const menuSectionClass =
-    "relative z-[2] mx-auto grid w-[min(1120px,calc(100%_-_2.5rem))] grid-cols-2 gap-[clamp(0.9rem,1.5vw,1.2rem)] overflow-hidden p-[clamp(1.35rem,3vw,2.6rem)] text-left [scroll-margin-top:92px] max-lg:grid-cols-1 max-md:w-[calc(100%_-_2rem)] max-md:p-5 max-[480px]:w-[calc(100%_-_1.5rem)] max-[480px]:p-4";
+    "relative z-[2] mx-auto grid w-full grid-cols-2 gap-[clamp(0.9rem,1.5vw,1.2rem)] overflow-hidden p-[clamp(1.35rem,3vw,2.6rem)] text-left [scroll-margin-top:160px] max-lg:grid-cols-1 max-md:p-5 max-[480px]:p-4";
   const menuHeadingClass =
     "relative z-[1] col-span-full pb-[1.1rem] text-center";
   const menuNoteClass = "relative z-[1] col-span-full text-center";
@@ -17,33 +30,102 @@ export default function Menu() {
   const priceClass =
     "mt-[0.95rem] inline-block border border-[rgba(198,161,91,0.34)] bg-[rgba(198,161,91,0.16)] px-[0.65rem] py-[0.34rem] text-[0.83rem] font-bold leading-[1.25] tracking-[0.045em] text-[var(--wine)]";
 
+  useEffect(() => {
+    let frameId = 0;
+
+    const getSections = () =>
+      menuCategories
+        .map((category) => document.getElementById(category.id))
+        .filter((section): section is HTMLElement => Boolean(section));
+
+    const updateActiveCategory = () => {
+      const marker = window.innerWidth <= 768 ? 170 : 180;
+      const sections = getSections();
+      const viewportBottom = window.innerHeight;
+      const currentSection =
+        sections
+          .map((section) => {
+            const rect = section.getBoundingClientRect();
+            const visibleHeight = Math.max(
+              0,
+              Math.min(rect.bottom, viewportBottom) - Math.max(rect.top, marker),
+            );
+            const distanceFromMarker = Math.abs(rect.top - marker);
+
+            return {
+              section,
+              score: visibleHeight * 2 - distanceFromMarker,
+            };
+          })
+          .sort((a, b) => b.score - a.score)[0]?.section ?? sections[0];
+
+      if (currentSection?.id) {
+        setActiveCategory(currentSection.id);
+      }
+    };
+
+    const scheduleActiveUpdate = () => {
+      window.cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(updateActiveCategory);
+    };
+
+    const observer = new IntersectionObserver(scheduleActiveUpdate, {
+      rootMargin: "-18% 0px -66% 0px",
+      threshold: [0, 0.01, 0.2, 0.45, 0.7, 1],
+    });
+
+    const sections = getSections();
+
+    sections.forEach((section) => observer.observe(section));
+    updateActiveCategory();
+    window.addEventListener("scroll", scheduleActiveUpdate, { passive: true });
+    window.addEventListener("resize", scheduleActiveUpdate);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      observer.disconnect();
+      window.removeEventListener("scroll", scheduleActiveUpdate);
+      window.removeEventListener("resize", scheduleActiveUpdate);
+    };
+  }, []);
+
+  const handleCategoryClick =
+    (categoryId: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      setActiveCategory(categoryId);
+      document.getElementById(categoryId)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    };
+
   return (
     <section
       id="menu"
-      className="relative isolate overflow-hidden px-0 py-[clamp(5rem,8vw,8rem)] text-center [scroll-margin-top:82px] max-lg:py-[5.5rem] max-[480px]:py-[4.5rem]"
+      className="relative isolate px-0 py-[clamp(5rem,8vw,8rem)] text-center [scroll-margin-top:82px] max-lg:py-[5.5rem] max-[480px]:py-[4.5rem]"
     >
-      <p className="eyebrow relative z-[2] mb-4 px-[clamp(1.25rem,7vw,6rem)]">
-        Generous Lebanese Table
-      </p>
-      <h2 className="relative z-[2] mb-5 px-[clamp(1.25rem,7vw,6rem)]">
-        Menu
-      </h2>
+      <div className="site-container relative z-[2]">
+        <p className="eyebrow mb-4">Generous Lebanese Table</p>
+        <h2 className="mb-5">Menu</h2>
 
-      <nav
-        className="menu-categories relative z-[2] mx-auto mb-[clamp(1.7rem,3vw,2.6rem)] flex w-[min(1040px,calc(100%_-_2.5rem))] flex-wrap justify-center gap-[0.55rem] overflow-hidden p-[0.85rem] max-md:w-[calc(100%_-_1.5rem)] max-md:flex-nowrap max-md:justify-start max-md:overflow-x-auto max-md:p-3 max-md:[overscroll-behavior-x:contain] max-md:[scrollbar-width:thin]"
-        aria-label="Menu categories"
-      >
-        <a href="#cold-mezze">Cold Mezze</a>
-        <a href="#hot-mezze">Hot Mezze</a>
-        <a href="#mashawi">Mashawi</a>
-        <a href="#seafood">Seafood</a>
-        <a href="#lebanese-dishes">Lebanese Dishes</a>
-        <a href="#desserts">Desserts</a>
-        <a href="#drinks">Drinks</a>
-      </nav>
+        <div className="menu-layout">
+          <aside className="menu-sidebar" aria-label="Menu categories">
+            <nav className="menu-categories">
+              {menuCategories.map((category) => (
+                <a
+                  key={category.id}
+                  href={`#${category.id}`}
+                  className={activeCategory === category.id ? "is-active" : undefined}
+                  aria-current={activeCategory === category.id ? "true" : undefined}
+                  onClick={handleCategoryClick(category.id)}
+                >
+                  {category.label}
+                </a>
+              ))}
+            </nav>
+          </aside>
 
-      <Image src="/images/menu.png" alt="" width={1200} height={250} className={separatorImageClass} />
-
+          <div className="menu-content">
       <section id="cold-mezze" className={menuSectionClass}>
         <h3 className={menuHeadingClass}>Cold Mezze</h3>
 
@@ -56,8 +138,6 @@ export default function Menu() {
         <article className={itemClass}><h4 className={itemTitleClass}>Kebbeh Nayyeh</h4><p className={itemTextClass}>Fresh raw kebbeh served with mint, onions, and olive oil.</p><span className={priceClass}>$12</span></article>
       </section>
 
-      <Image src="/images/menu.png" alt="" width={1200} height={250} className={separatorImageClass} />
-
       <section id="hot-mezze" className={menuSectionClass}>
         <h3 className={menuHeadingClass}>Hot Mezze</h3>
 
@@ -69,8 +149,6 @@ export default function Menu() {
         <article className={itemClass}><h4 className={itemTitleClass}>Jawaneh</h4><p className={itemTextClass}>Chicken wings with garlic, lemon, and coriander.</p><span className={priceClass}>$8</span></article>
       </section>
 
-      <Image src="/images/menu.png" alt="" width={1200} height={250} className={separatorImageClass} />
-
       <section id="mashawi" className={menuSectionClass}>
         <h3 className={menuHeadingClass}>Mashawi by Kilo</h3>
         <p className={menuNoteClass}>Available starting from 1/2 kg.</p>
@@ -81,8 +159,6 @@ export default function Menu() {
         <article className={itemClass}><h4 className={itemTitleClass}>Mixed Grill</h4><p className={itemTextClass}>A generous mix of tawook, kafta, and grilled meat.</p><span className={priceClass}>1/2 kg $17 - 1 kg $32</span></article>
       </section>
 
-      <Image src="/images/menu.png" alt="" width={1200} height={250} className={separatorImageClass} />
-
       <section id="seafood" className={menuSectionClass}>
         <h3 className={menuHeadingClass}>Seafood</h3>
 
@@ -91,8 +167,6 @@ export default function Menu() {
         <article className={itemClass}><h4 className={itemTitleClass}>Grilled Shrimps</h4><p className={itemTextClass}>Shrimps grilled with garlic, lemon, and Lebanese spices.</p><span className={priceClass}>$22</span></article>
         <article className={itemClass}><h4 className={itemTitleClass}>Fried Calamari</h4><p className={itemTextClass}>Golden calamari rings served with lemon and sauce.</p><span className={priceClass}>$18</span></article>
       </section>
-
-      <Image src="/images/menu.png" alt="" width={1200} height={250} className={separatorImageClass} />
 
       <section id="lebanese-dishes" className={menuSectionClass}>
         <h3 className={menuHeadingClass}>Lebanese Main Dishes</h3>
@@ -103,8 +177,6 @@ export default function Menu() {
         <article className={itemClass}><h4 className={itemTitleClass}>Mloukhieh</h4><p className={itemTextClass}>Lebanese stew served with rice and chicken.</p><span className={priceClass}>$16</span></article>
       </section>
 
-      <Image src="/images/menu.png" alt="" width={1200} height={250} className={separatorImageClass} />
-
       <section id="desserts" className={menuSectionClass}>
         <h3 className={menuHeadingClass}>Desserts & Fruits</h3>
 
@@ -113,8 +185,6 @@ export default function Menu() {
         <article className={itemClass}><h4 className={itemTitleClass}>Baklava</h4><p className={itemTextClass}>Layered pastry with nuts and syrup.</p><span className={priceClass}>$6</span></article>
         <article className={itemClass}><h4 className={itemTitleClass}>Seasonal Fruits</h4><p className={itemTextClass}>Fresh fruit plate served Lebanese-style after the meal.</p><span className={priceClass}>$8</span></article>
       </section>
-
-      <Image src="/images/menu.png" alt="" width={1200} height={250} className={separatorImageClass} />
 
       <section id="drinks" className={menuSectionClass}>
         <h3 className={menuHeadingClass}>Drinks</h3>
@@ -129,6 +199,9 @@ export default function Menu() {
         <article className={itemClass}><h4 className={itemTitleClass}>Beer</h4><p className={itemTextClass}>Served chilled with grills and seafood.</p><span className={priceClass}>$4</span></article>
         <article className={itemClass}><h4 className={itemTitleClass}>Whiskey</h4><p className={itemTextClass}>Classic spirit available for guests.</p><span className={priceClass}>Glass $6 - Bottle $45</span></article>
       </section>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
