@@ -2,16 +2,9 @@
 
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
-
-const menuCategories = [
-  { id: "cold-mezze", label: "Cold Mezze" },
-  { id: "hot-mezze", label: "Hot Mezze" },
-  { id: "mashawi", label: "Mashawi" },
-  { id: "seafood", label: "Seafood" },
-  { id: "lebanese-dishes", label: "Lebanese Main Dishes" },
-  { id: "desserts", label: "Desserts" },
-  { id: "drinks", label: "Drinks" },
-];
+import { menuCategories } from "../data/menu";
+import Container from "./Container";
+import ContentCard from "./ContentCard";
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState(menuCategories[0].id);
@@ -21,14 +14,6 @@ export default function Menu() {
   const menuHeadingClass =
     "relative z-[1] col-span-full pb-[1.1rem] text-center";
   const menuNoteClass = "relative z-[1] col-span-full text-center";
-  const itemClass =
-    "relative z-[1] min-h-[145px] overflow-hidden p-[1.35rem_1.4rem_1.22rem] transition-[transform,border-color,box-shadow] duration-[250ms] ease-out hover:-translate-y-1 max-md:min-h-0 max-md:p-[1.15rem_1.1rem]";
-  const itemTitleClass =
-    "mb-2 text-[1.2rem] font-medium leading-[1.25] text-[var(--burgundy)] max-[480px]:text-[1.12rem]";
-  const itemTextClass =
-    "m-0 text-[0.96rem] leading-[1.65] text-[rgba(43,33,24,0.76)]";
-  const priceClass =
-    "mt-[0.95rem] inline-block border border-[rgba(198,161,91,0.34)] bg-[rgba(198,161,91,0.16)] px-[0.65rem] py-[0.34rem] text-[0.83rem] font-bold leading-[1.25] tracking-[0.045em] text-[var(--wine)]";
 
   useEffect(() => {
     let frameId = 0;
@@ -102,9 +87,9 @@ export default function Menu() {
   return (
     <section
       id="menu"
-      className="relative isolate px-0 py-[clamp(5rem,8vw,8rem)] text-center [scroll-margin-top:82px] max-lg:py-[5.5rem] max-[480px]:py-[4.5rem]"
+      className="section-space-lg relative isolate px-0 text-center [scroll-margin-top:82px]"
     >
-      <div className="site-container relative z-[2]">
+      <Container className="relative z-[2]">
         <p className="eyebrow mb-4">Generous Lebanese Table</p>
         <h2 className="mb-5">Menu</h2>
 
@@ -126,82 +111,30 @@ export default function Menu() {
           </aside>
 
           <div className="menu-content">
-      <section id="cold-mezze" className={menuSectionClass}>
-        <h3 className={menuHeadingClass}>Cold Mezze</h3>
+            {menuCategories.map((category) => (
+              <section
+                key={category.id}
+                id={category.id}
+                className={menuSectionClass}
+              >
+                <h3 className={menuHeadingClass}>{category.heading}</h3>
+                {category.note && (
+                  <p className={menuNoteClass}>{category.note}</p>
+                )}
 
-        <article className={itemClass}><h4 className={itemTitleClass}>Hummus</h4><p className={itemTextClass}>Chickpea dip with tahini, lemon, and olive oil.</p><span className={priceClass}>$4</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Baba Ghanouj</h4><p className={itemTextClass}>Smoky eggplant with tahini, garlic, lemon, and olive oil.</p><span className={priceClass}>$4</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Labneh</h4><p className={itemTextClass}>Fresh strained yogurt with olive oil and dried mint.</p><span className={priceClass}>$3</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Tabbouleh</h4><p className={itemTextClass}>Parsley, tomato, bulgur, lemon, and olive oil.</p><span className={priceClass}>$5</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Fattoush</h4><p className={itemTextClass}>Fresh vegetables, toasted bread, sumac, and pomegranate dressing.</p><span className={priceClass}>$5</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Wara2 Aarish B Zeit</h4><p className={itemTextClass}>Vegetarian grape leaves with rice, herbs, and olive oil.</p><span className={priceClass}>$7</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Kebbeh Nayyeh</h4><p className={itemTextClass}>Fresh raw kebbeh served with mint, onions, and olive oil.</p><span className={priceClass}>$12</span></article>
-      </section>
-
-      <section id="hot-mezze" className={menuSectionClass}>
-        <h3 className={menuHeadingClass}>Hot Mezze</h3>
-
-        <article className={itemClass}><h4 className={itemTitleClass}>Ra2a2at Jebneh</h4><p className={itemTextClass}>Crispy cheese rolls served hot.</p><span className={priceClass}>6 pcs - $7</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Sambousik Lahme</h4><p className={itemTextClass}>Fried pastries filled with seasoned minced meat.</p><span className={priceClass}>6 pcs - $7</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Sambousik Jebneh</h4><p className={itemTextClass}>Fried pastries filled with melted cheese.</p><span className={priceClass}>6 pcs - $7</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Kebbeh Krass</h4><p className={itemTextClass}>Fried bulgur shells stuffed with spiced meat and onions.</p><span className={priceClass}>6 pcs - $8</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Batata Harra</h4><p className={itemTextClass}>Spicy potatoes with garlic, coriander, and chili.</p><span className={priceClass}>$5</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Jawaneh</h4><p className={itemTextClass}>Chicken wings with garlic, lemon, and coriander.</p><span className={priceClass}>$8</span></article>
-      </section>
-
-      <section id="mashawi" className={menuSectionClass}>
-        <h3 className={menuHeadingClass}>Mashawi by Kilo</h3>
-        <p className={menuNoteClass}>Available starting from 1/2 kg.</p>
-
-        <article className={itemClass}><h4 className={itemTitleClass}>Chicken Tawook</h4><p className={itemTextClass}>Marinated grilled chicken skewers with garlic sauce.</p><span className={priceClass}>1/2 kg $12 - 1 kg $22</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Kafta</h4><p className={itemTextClass}>Grilled minced meat with parsley, onions, and Lebanese spices.</p><span className={priceClass}>1/2 kg $13 - 1 kg $24</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Lahme Meshwiye</h4><p className={itemTextClass}>Grilled meat skewers served with grilled vegetables.</p><span className={priceClass}>1/2 kg $18 - 1 kg $34</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Mixed Grill</h4><p className={itemTextClass}>A generous mix of tawook, kafta, and grilled meat.</p><span className={priceClass}>1/2 kg $17 - 1 kg $32</span></article>
-      </section>
-
-      <section id="seafood" className={menuSectionClass}>
-        <h3 className={menuHeadingClass}>Seafood</h3>
-
-        <article className={itemClass}><h4 className={itemTitleClass}>Grilled Fish</h4><p className={itemTextClass}>Fresh fish grilled with lemon, olive oil, and herbs.</p><span className={priceClass}>Market price</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Fried Fish</h4><p className={itemTextClass}>Crispy fried fish served with tarator and salad.</p><span className={priceClass}>Market price</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Grilled Shrimps</h4><p className={itemTextClass}>Shrimps grilled with garlic, lemon, and Lebanese spices.</p><span className={priceClass}>$22</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Fried Calamari</h4><p className={itemTextClass}>Golden calamari rings served with lemon and sauce.</p><span className={priceClass}>$18</span></article>
-      </section>
-
-      <section id="lebanese-dishes" className={menuSectionClass}>
-        <h3 className={menuHeadingClass}>Lebanese Main Dishes</h3>
-
-        <article className={itemClass}><h4 className={itemTitleClass}>Djej aa Riz</h4><p className={itemTextClass}>Chicken and rice served with nuts and warm spices.</p><span className={priceClass}>$18</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Wara2 Aarish bi Lahme</h4><p className={itemTextClass}>Grape leaves stuffed with rice and meat, cooked slowly.</p><span className={priceClass}>$14</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Kousa Mehshi</h4><p className={itemTextClass}>Zucchini stuffed with rice and meat in tomato sauce.</p><span className={priceClass}>$15</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Mloukhieh</h4><p className={itemTextClass}>Lebanese stew served with rice and chicken.</p><span className={priceClass}>$16</span></article>
-      </section>
-
-      <section id="desserts" className={menuSectionClass}>
-        <h3 className={menuHeadingClass}>Desserts & Fruits</h3>
-
-        <article className={itemClass}><h4 className={itemTitleClass}>Meghle</h4><p className={itemTextClass}>Rice pudding with cinnamon, coconut, and nuts.</p><span className={priceClass}>$5</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Atayef</h4><p className={itemTextClass}>Stuffed pancakes with cream or walnuts.</p><span className={priceClass}>$6</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Baklava</h4><p className={itemTextClass}>Layered pastry with nuts and syrup.</p><span className={priceClass}>$6</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Seasonal Fruits</h4><p className={itemTextClass}>Fresh fruit plate served Lebanese-style after the meal.</p><span className={priceClass}>$8</span></article>
-      </section>
-
-      <section id="drinks" className={menuSectionClass}>
-        <h3 className={menuHeadingClass}>Drinks</h3>
-
-        <article className={itemClass}><h4 className={itemTitleClass}>Water</h4><p className={itemTextClass}>Served on the house.</p><span className={priceClass}>Free</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Soft Drinks</h4><p className={itemTextClass}>Cola, 7UP, Pepsi, Mirinda, and classic soft drinks.</p><span className={priceClass}>$2</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Jallab</h4><p className={itemTextClass}>Traditional Lebanese drink served with pine nuts.</p><span className={priceClass}>$4</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Ayran</h4><p className={itemTextClass}>Cold yogurt drink served fresh.</p><span className={priceClass}>$3</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Fresh Lemonade</h4><p className={itemTextClass}>Fresh lemon juice with mint.</p><span className={priceClass}>$4</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Ahwe</h4><p className={itemTextClass}>Traditional Lebanese coffee served after food.</p><span className={priceClass}>$2</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Arak</h4><p className={itemTextClass}>Traditional Lebanese anise drink served with mezze.</p><span className={priceClass}>Glass $4 - Bottle $18</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Beer</h4><p className={itemTextClass}>Served chilled with grills and seafood.</p><span className={priceClass}>$4</span></article>
-        <article className={itemClass}><h4 className={itemTitleClass}>Whiskey</h4><p className={itemTextClass}>Classic spirit available for guests.</p><span className={priceClass}>Glass $6 - Bottle $45</span></article>
-      </section>
+                {category.items.map((item) => (
+                  <ContentCard
+                    key={item.name}
+                    title={item.name}
+                    description={item.description}
+                    meta={item.price}
+                  />
+                ))}
+              </section>
+            ))}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

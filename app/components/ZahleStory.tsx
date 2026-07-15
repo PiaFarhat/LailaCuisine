@@ -1,12 +1,19 @@
 import Image from "next/image";
+import Link from "next/link";
+import { navigationItems } from "../config/site";
+import Container from "./Container";
 
 export default function ZahleStory() {
+  const reservationHref =
+    navigationItems.find((item) => item.label === "Reservation")?.href ??
+    "/reservation";
+
   return (
     <section
-      id="map"
-      className="story-section relative py-[clamp(4.25rem,6.5vw,6.75rem)] [scroll-margin-top:82px] max-lg:py-[4.75rem] max-[480px]:py-[3.75rem]"
+      id="zahle"
+      className="story-section section-space relative [scroll-margin-top:82px]"
     >
-      <div className="story-grid site-container relative z-[2]">
+      <Container className="story-grid relative z-[2]">
         <div className="story-panel relative overflow-hidden">
           <p className="eyebrow mb-4">The Journey</p>
           <h2 className="mb-6">From the vineyards of Zahle to Laila&apos;s table</h2>
@@ -21,7 +28,7 @@ export default function ZahleStory() {
             hospitality.
           </p>
 
-          <a href="#reservation">Plan Your Visit</a>
+          <Link href={reservationHref}>Plan Your Visit</Link>
         </div>
 
         <Image
@@ -31,7 +38,7 @@ export default function ZahleStory() {
           height={800}
           className="story-image story-image--zahle relative w-full"
         />
-      </div>
+      </Container>
     </section>
   );
 }

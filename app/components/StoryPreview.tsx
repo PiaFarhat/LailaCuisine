@@ -1,26 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 import Container from "./Container";
 
-export default function About() {
+export default function StoryPreview() {
   return (
-    <section
-      id="story"
-      className="story-section section-space relative [scroll-margin-top:82px]"
-    >
+    <section id="story-preview" className="story-section section-space relative">
       <Container className="story-grid relative z-[2]">
         <div className="story-panel relative overflow-hidden">
           <p className="eyebrow mb-4">Our Story</p>
-
           <h2 className="mb-6">
             A tribute to my grandmother, Laila, and the timeless hospitality of Zahle.
           </h2>
-
           <p>
             Laila Cuisine is named after my grandmother, whose table was always filled with
-            family, friends, and homemade Lebanese dishes. Inspired by her warmth and the
-            traditions of Zahle, we continue her legacy by serving food that brings people
-            together.
+            family, friends, and homemade Lebanese dishes.
           </p>
+          <Link className="route-cta" href="/story">
+            Discover Our Story
+          </Link>
         </div>
 
         <Image

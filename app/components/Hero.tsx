@@ -1,10 +1,19 @@
 import Image from "next/image";
+import Link from "next/link";
+import { navigationItems } from "../config/site";
+import Container from "./Container";
 
 export default function Hero() {
+  const menuHref =
+    navigationItems.find((item) => item.label === "Menu")?.href ?? "/menu";
+  const reservationHref =
+    navigationItems.find((item) => item.label === "Reservation")?.href ??
+    "/reservation";
+
   return (
     <section
       id="home"
-      className="relative grid min-h-[84svh] place-items-center pt-[92px] pb-[clamp(4rem,6vw,6rem)] [scroll-margin-top:82px] max-md:min-h-[100svh] max-md:items-end max-md:pt-[7.6rem] max-md:pb-16 max-[480px]:pt-[7.2rem]"
+      className="relative grid min-h-[84svh] place-items-center pt-[92px] pb-[clamp(4rem,6vw,6rem)] [scroll-margin-top:82px] max-md:block max-md:min-h-0 max-md:pt-[66px] max-md:pb-12"
     >
       <Image
         src="/images/hero.png"
@@ -12,10 +21,10 @@ export default function Hero() {
         width={1600}
         height={900}
         priority
-        className="fixed inset-0 z-[-5] h-[84svh] w-full object-cover object-center opacity-[0.3] max-md:absolute max-md:h-full max-md:object-[58%_center] max-md:opacity-100 max-[480px]:object-[62%_center]"
+        className="fixed inset-0 z-[-5] h-[84svh] w-full object-cover object-center opacity-[0.3] max-md:relative max-md:inset-auto max-md:z-0 max-md:h-[min(58vh,430px)] max-md:min-h-[300px] max-md:object-[58%_center] max-md:opacity-100 max-[480px]:h-[360px] max-[480px]:min-h-0 max-[480px]:object-[62%_center]"
       />
 
-      <div className="site-container relative">
+      <Container className="relative max-md:z-[2] max-md:mt-[-2rem]">
         <div className="hero-panel relative mx-auto overflow-hidden p-[clamp(2rem,4vw,3.5rem)] text-center max-md:px-[1.15rem] max-md:py-[1.65rem]">
           <p className="eyebrow mb-4">Homemade Lebanese Restaurant</p>
           <h1 className="m-0 text-[clamp(3rem,7.5vw,6.4rem)] font-normal leading-[0.96] tracking-[0.12em] text-[var(--burgundy)] max-md:text-[clamp(2.75rem,15vw,4.8rem)] max-md:tracking-[0.07em]">
@@ -25,10 +34,10 @@ export default function Hero() {
             Authentic Lebanese cuisine inspired by Zahle.
           </p>
 
-          <a href="#menu">Explore Menu</a>
-          <a href="#reservation">Reserve a Table</a>
+          <Link href={menuHref}>Explore Menu</Link>
+          <Link href={reservationHref}>Reserve a Table</Link>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
