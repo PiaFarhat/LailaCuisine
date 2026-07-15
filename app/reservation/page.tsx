@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import MaterialTailwindCheck from "../components/MaterialTailwindCheck";
 import Reservation from "../components/Reservation";
 
 export const metadata: Metadata = {
@@ -7,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function ReservationPage() {
-  return <Reservation />;
+  return (
+    <>
+      <Reservation />
+      <MaterialTailwindCheck />
+    </>
+  );
 }
