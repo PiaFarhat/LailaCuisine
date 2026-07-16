@@ -13,7 +13,7 @@ export default function MenuPreview() {
     <>
       <section
         id="menu-preview"
-        className="section-space-lg relative isolate px-0 text-center"
+        className="relative isolate px-0 py-[clamp(5rem,8vw,8rem)] text-center"
       >
         <Container className="relative z-[2]">
           <p className="eyebrow mb-4">Generous Lebanese Table</p>
@@ -38,7 +38,7 @@ export default function MenuPreview() {
 
       <section
         id="special-orders-preview"
-        className="section-space-lg relative text-center text-[var(--ivory)]"
+        className="relative py-[clamp(5rem,8vw,8rem)] text-center text-[var(--ivory)]"
       >
         <Container className="relative z-[2]">
           <p className="eyebrow mb-4">By Reservation Only</p>

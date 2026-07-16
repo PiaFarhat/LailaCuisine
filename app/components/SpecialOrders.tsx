@@ -14,7 +14,7 @@ export default function SpecialOrders() {
   return (
     <section
       id="special-orders"
-      className="section-space-lg relative min-h-screen text-center text-[var(--ivory)] [scroll-margin-top:82px]"
+      className="relative min-h-screen py-[clamp(5rem,8vw,8rem)] text-center text-[var(--ivory)] [scroll-margin-top:82px]"
     >
       <Container className="relative z-[2]">
         <p className="eyebrow mb-4">By Reservation Only</p>

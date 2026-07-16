@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="section-space-lg relative isolate overflow-hidden text-center [scroll-margin-top:82px]"
+      className="relative isolate overflow-hidden py-[clamp(5rem,8vw,8rem)] text-center [scroll-margin-top:82px]"
     >
       <Container className="relative z-[2]">
         <p className="eyebrow mb-4">Visit Us</p>

@@ -4,6 +4,7 @@ import type {
   HTMLInputTypeAttribute,
   InputHTMLAttributes,
 } from "react";
+import { Input } from "@material-tailwind/react";
 
 type FormFieldProps = {
   label: string;
@@ -19,6 +20,9 @@ type FormFieldProps = {
   error?: string;
   onBlur: FocusEventHandler<HTMLInputElement>;
   onInput: FormEventHandler<HTMLInputElement>;
+  className?: string;
+  inputClassName?: string;
+  messageClassName?: string;
 };
 
 export default function FormField({
@@ -35,16 +39,22 @@ export default function FormField({
   error,
   onBlur,
   onInput,
+  className,
+  inputClassName,
+  messageClassName = "min-h-[1.25rem] text-[0.78rem] leading-[1.35]",
 }: FormFieldProps) {
   const errorId = `${name}-error`;
-  const fieldClass = `form-field grid gap-[0.45rem] text-[0.86rem] tracking-[0.06em] text-[var(--wine)]${
+  const fieldId = `${name}-field`;
+  const fieldClass = `${className ?? "grid gap-[0.45rem] text-[0.86rem] tracking-[0.06em] text-[var(--wine)]"}${
     error ? " form-field--invalid" : ""
   }`;
 
   return (
-    <label className={fieldClass}>
-      {label}
-      <input
+    <div className={fieldClass}>
+      <label htmlFor={fieldId}>{label}</label>
+      <Input
+        id={fieldId}
+        className={inputClassName}
         type={type}
         name={name}
         placeholder={placeholder}
@@ -59,11 +69,19 @@ export default function FormField({
         onBlur={onBlur}
         onInput={onInput}
       />
-      {error && (
-        <span id={errorId} className="form-error" role="alert">
-          {error}
-        </span>
-      )}
-    </label>
+      <div className={messageClassName}>
+        {error ? (
+          <span
+            id={errorId}
+            className="form-error inline-block transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:translate-y-0"
+            role="alert"
+          >
+            {error}
+          </span>
+        ) : (
+          <span aria-hidden="true">&nbsp;</span>
+        )}
+      </div>
+    </div>
   );
 }

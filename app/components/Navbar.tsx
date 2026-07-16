@@ -20,7 +20,7 @@ export default function Navbar() {
 
   const closeNav = () => setNavOpen(false);
   const navLinkClass =
-    "relative inline-flex min-h-10 items-center whitespace-nowrap px-[0.08rem] py-1 text-[clamp(0.69rem,0.74vw,0.78rem)] uppercase leading-none tracking-[0.11em] text-[rgba(43,33,24,0.9)] transition-colors duration-[250ms] ease-out max-[1366px]:text-[0.69rem] max-[1366px]:tracking-[0.095em] max-[1120px]:text-[0.64rem] max-[1120px]:tracking-[0.075em] max-[900px]:min-h-11 max-[900px]:text-[0.96rem] max-[900px]:tracking-[0.15em] max-[900px]:text-[var(--burgundy)] max-[900px]:active:text-[var(--gold)]";
+    "relative inline-flex min-h-10 items-center whitespace-nowrap px-[0.08rem] py-1 text-[clamp(0.67rem,0.72vw,0.78rem)] uppercase leading-none tracking-[0.08em] text-[rgba(43,33,24,0.9)] transition-colors duration-[250ms] ease-out max-[1366px]:text-[0.68rem] max-[1366px]:tracking-[0.08em] max-[1120px]:text-[0.63rem] max-[1120px]:tracking-[0.07em] max-[900px]:min-h-11 max-[900px]:text-[0.96rem] max-[900px]:tracking-[0.15em] max-[900px]:text-[var(--burgundy)] max-[900px]:active:text-[var(--gold)]";
 
   useEffect(() => {
     if (!navOpen) return;
@@ -101,7 +101,7 @@ export default function Navbar() {
       className="site-nav fixed inset-x-0 top-0 z-[100]"
     >
       <Container
-        className="flex min-h-[70px] items-center justify-between gap-[clamp(1.4rem,3.2vw,4rem)] max-[1366px]:gap-[clamp(1rem,2vw,2rem)] max-[1120px]:min-h-[66px] max-[900px]:min-h-[66px]"
+        className="flex min-h-[82px] items-center justify-between gap-[clamp(1.6rem,3.4vw,4.4rem)] max-[1366px]:gap-[clamp(1.1rem,2.2vw,2.2rem)] max-[1120px]:min-h-[76px] max-[900px]:min-h-[66px]"
       >
         <Link
           href="/"

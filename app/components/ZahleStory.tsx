@@ -11,7 +11,7 @@ export default function ZahleStory() {
   return (
     <section
       id="zahle"
-      className="story-section section-space relative [scroll-margin-top:82px]"
+      className="story-section relative py-[clamp(4rem,7vw,7rem)] [scroll-margin-top:82px]"
     >
       <Container className="story-grid relative z-[2]">
         <div className="story-panel relative overflow-hidden">

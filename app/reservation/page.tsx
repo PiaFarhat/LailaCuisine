@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MaterialTailwindCheck from "../components/MaterialTailwindCheck";
+import PageBanner from "../components/PageBanner";
 import Reservation from "../components/Reservation";
 
 export const metadata: Metadata = {
@@ -10,8 +10,15 @@ export const metadata: Metadata = {
 export default function ReservationPage() {
   return (
     <>
+      <PageBanner
+        eyebrow="Book Your Table"
+        title="Reserve Your Evening"
+        description="Plan a Lebanese table for family, friends, and pre-requested dishes."
+        backgroundImage="/images/table.png"
+        bottomFade="none"
+        variant="reservation"
+      />
       <Reservation />
-      <MaterialTailwindCheck />
     </>
   );
 }

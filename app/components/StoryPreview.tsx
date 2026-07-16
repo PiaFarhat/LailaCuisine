@@ -4,7 +4,10 @@ import Container from "./Container";
 
 export default function StoryPreview() {
   return (
-    <section id="story-preview" className="story-section section-space relative">
+    <section
+      id="story-preview"
+      className="story-section relative py-[clamp(4rem,7vw,7rem)]"
+    >
       <Container className="story-grid relative z-[2]">
         <div className="story-panel relative overflow-hidden">
           <p className="eyebrow mb-4">Our Story</p>

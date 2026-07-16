@@ -33,37 +33,6 @@ body {
   font-family: Georgia, "Times New Roman", serif;
 }
 
-.site-container {
-  width: 100%;
-  max-width: calc(var(--content-max) + (var(--content-gutter) * 2));
-  margin-inline: auto;
-  padding-inline: var(--content-gutter);
-}
-
-@media (min-width: 768px) {
-  :root {
-    --content-gutter: 2rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  :root {
-    --content-gutter: 3rem;
-  }
-}
-
-.section-space {
-  padding-block: clamp(4rem, 7vw, 7rem);
-}
-
-.section-space-lg {
-  padding-block: clamp(5rem, 8vw, 8rem);
-}
-
-.section-space-reservation {
-  padding-block: clamp(5.5rem, 8vw, 8rem);
-}
-
 .hero-panel {
   width: min(100%, 760px);
 }
@@ -158,6 +127,7 @@ img {
   width: 0;
   height: 1px;
   background: linear-gradient(90deg, var(--burgundy), var(--gold));
+  opacity: 0.65;
   transform: translateX(-50%);
   transition-property: width;
   transition-duration: 280ms;
@@ -173,7 +143,7 @@ img {
 .nav-links a:hover::after,
 .nav-links a:focus-visible::after,
 .nav-links a.is-active::after {
-  width: 100%;
+  width: 70%;
 }
 
 a:focus-visible,
@@ -548,90 +518,6 @@ section p {
 main.overflow-hidden {
   overflow-x: clip;
   overflow-y: visible;
-}
-
-.menu-layout {
-  display: grid;
-  grid-template-columns: 230px minmax(0, 1fr);
-  gap: clamp(2rem, 3vw, 3rem);
-  align-items: stretch;
-  margin-top: clamp(2rem, 3.6vw, 3rem);
-  width: 100%;
-  max-width: 100%;
-}
-
-.menu-sidebar {
-  z-index: 12;
-  align-self: stretch;
-  min-height: 100%;
-  padding-block: 0.35rem;
-  min-width: 0;
-}
-
-.menu-categories {
-  position: sticky;
-  top: 96px;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1rem, 1.65vw, 1.45rem);
-  align-items: flex-start;
-  border-left: 1px solid rgba(198, 161, 91, 0.26);
-  padding: 0.2rem 0 0.2rem clamp(1rem, 1.8vw, 1.35rem);
-}
-
-.menu-categories a {
-  position: relative;
-  display: inline-flex;
-  color: rgba(43, 33, 24, 0.58);
-  font-size: 0.76rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: 0.14em;
-  text-align: left;
-  text-transform: uppercase;
-  transition-property: color, border-color, background-color, box-shadow;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.menu-categories a::before {
-  content: "";
-  position: absolute;
-  left: calc((clamp(1rem, 1.8vw, 1.35rem) + 1px) * -1);
-  top: 50%;
-  width: 2px;
-  height: 0;
-  background: var(--gold);
-  transform: translateY(-50%);
-  transition-property: height;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.menu-categories a:hover,
-.menu-categories a:focus-visible {
-  color: var(--gold);
-}
-
-.menu-categories a.is-active {
-  color: var(--burgundy);
-}
-
-.menu-categories a.is-active::before {
-  height: 1.65rem;
-}
-
-.menu-content {
-  align-self: start;
-  min-width: 0;
-  width: 100%;
-  max-width: 100%;
-}
-
-.menu-content > section {
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
 }
 
 #menu section {
@@ -1042,13 +928,12 @@ article:hover {
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(180deg, rgba(47, 21, 18, 0.58), rgba(43, 21, 18, 0.2) 24%, rgba(43, 21, 18, 0.22) 72%, rgba(255, 250, 242, 0.78)),
-    linear-gradient(90deg, rgba(43, 21, 18, 0.72), rgba(43, 21, 18, 0.24)),
-    radial-gradient(circle at center, transparent, rgba(43, 21, 18, 0.58));
+    linear-gradient(180deg, rgba(247, 240, 227, 0.86), rgba(247, 240, 227, 0.98)),
+    radial-gradient(circle at 20% 0%, rgba(198, 161, 91, 0.12), transparent 34%);
 }
 
 #reservation::after {
-  background: linear-gradient(180deg, transparent, rgba(255, 250, 242, 0.96));
+  background: linear-gradient(180deg, transparent, rgba(247, 240, 227, 0.72));
 }
 
 #reservation .reservation-panel {
@@ -1063,138 +948,10 @@ article:hover {
   backdrop-filter: blur(12px);
 }
 
-.page-intro h1 {
-  margin: 0;
-  color: var(--burgundy);
-  font-size: clamp(3rem, 7.5vw, 6.4rem);
-  font-weight: 400;
-  line-height: 0.96;
-  letter-spacing: 0.08em;
-}
-
-.wine-hero {
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 18% 28%, rgba(198, 161, 91, 0.2), transparent 26%),
-    radial-gradient(circle at 86% 64%, rgba(85, 107, 47, 0.18), transparent 28%),
-    linear-gradient(135deg, #3a0b1d, var(--wine) 48%, #611934);
-  color: var(--ivory);
-}
-
-.wine-hero::before,
-.wine-hero::after,
-.wine-hero__media {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-
-.wine-hero::before {
-  inset: 0;
-  z-index: -3;
-  background-image:
-    radial-gradient(rgba(255, 253, 248, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(198, 161, 91, 0.12), transparent 24%, transparent 76%, rgba(85, 107, 47, 0.14));
-  background-size: 20px 20px, 100% 100%;
-  opacity: 0.38;
-}
-
-.wine-hero::after {
-  inset: 14px;
-  z-index: -1;
-  border: 1px solid rgba(198, 161, 91, 0.42);
-}
-
-.wine-hero__media {
-  inset: 12% -8% auto auto;
-  z-index: -2;
-  width: min(46vw, 560px);
-  aspect-ratio: 1;
-  overflow: hidden;
-  border: 1px solid rgba(198, 161, 91, 0.32);
-  border-radius: 999px;
-  background: rgba(58, 11, 29, 0.45);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 253, 248, 0.08),
-    0 34px 90px rgba(20, 9, 7, 0.28);
-}
-
-.wine-hero__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 45% 45%, transparent 36%, rgba(58, 11, 29, 0.18) 68%, rgba(43, 6, 20, 0.55)),
-    linear-gradient(135deg, rgba(58, 11, 29, 0.16), rgba(198, 161, 91, 0.12));
-}
-
-.wine-hero__media img {
-  object-position: center;
-}
-
-.wine-hero__content {
-  position: relative;
-  max-width: 840px;
-  padding: clamp(1.75rem, 3.5vw, 3rem);
-  border-left: 1px solid rgba(198, 161, 91, 0.55);
-}
-
-.wine-hero__content h1 {
-  max-width: 10em;
-  margin: 0 0 1.25rem;
-  color: var(--ivory);
-  font-size: clamp(3rem, 7vw, 6.2rem);
-  font-weight: 400;
-  line-height: 0.95;
-}
-
-.wine-hero__content p:not(.eyebrow) {
-  max-width: 42rem;
-  color: rgba(255, 253, 248, 0.82);
-  font-size: clamp(1.05rem, 1.55vw, 1.18rem);
-  line-height: 1.85;
-}
-
 .wine-details {
   background:
     linear-gradient(180deg, rgba(255, 250, 242, 0.96), rgba(248, 244, 236, 0.94)),
     radial-gradient(circle at 18% 20%, rgba(198, 161, 91, 0.14), transparent 30%);
-}
-
-.wine-details__grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.8rem, 1.6vw, 1.2rem);
-}
-
-.wine-detail {
-  min-height: 150px;
-  padding: 1.35rem;
-  background:
-    linear-gradient(135deg, rgba(255, 253, 248, 0.9), rgba(248, 244, 236, 0.72)),
-    radial-gradient(circle at top right, rgba(198, 161, 91, 0.18), transparent 34%);
-  border: 1px solid rgba(198, 161, 91, 0.5);
-  box-shadow: 0 18px 40px rgba(77, 16, 39, 0.08);
-}
-
-.wine-detail span {
-  display: block;
-  width: 0.64rem;
-  height: 0.64rem;
-  margin-bottom: 1rem;
-  border: 1px solid var(--gold);
-  background: rgba(198, 161, 91, 0.16);
-  transform: rotate(45deg);
-}
-
-.wine-detail p {
-  margin: 0;
-  color: var(--burgundy);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.6;
-  text-transform: uppercase;
 }
 
 .wine-buffet {
@@ -1203,201 +960,10 @@ article:hover {
     linear-gradient(180deg, rgba(248, 244, 236, 0.98), rgba(255, 253, 248, 0.94));
 }
 
-.wine-section-heading {
-  max-width: 780px;
-  margin: 0 auto clamp(2rem, 4vw, 3.25rem);
-  text-align: center;
-}
-
-.wine-section-heading h2 {
-  margin: 0 0 1rem;
-  color: var(--burgundy);
-  font-size: clamp(2.45rem, 5vw, 4.8rem);
-  font-weight: 400;
-  line-height: 1;
-}
-
-.wine-section-heading p:not(.eyebrow) {
-  margin: 0 auto;
-  max-width: 42rem;
-  color: rgba(43, 21, 18, 0.72);
-  line-height: 1.8;
-}
-
-.wine-buffet__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 1.4rem);
-}
-
-.wine-buffet-card {
-  padding: clamp(1.25rem, 2vw, 1.8rem);
-  background:
-    linear-gradient(135deg, rgba(255, 253, 248, 0.94), rgba(248, 244, 236, 0.78)),
-    radial-gradient(circle at top right, rgba(198, 161, 91, 0.18), transparent 34%);
-  border: 1px solid rgba(198, 161, 91, 0.54);
-  box-shadow: 0 22px 52px rgba(77, 16, 39, 0.1);
-}
-
-.wine-buffet-card h3 {
-  margin: 0 0 1rem;
-  color: var(--burgundy);
-  font-size: clamp(1.3rem, 2vw, 1.7rem);
-  font-weight: 400;
-}
-
-.wine-buffet-card ul,
-.wine-reserve__copy ul {
-  display: grid;
-  gap: 0.7rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.wine-buffet-card li,
-.wine-reserve__copy li {
-  position: relative;
-  padding-left: 1rem;
-  color: rgba(43, 21, 18, 0.74);
-  line-height: 1.65;
-}
-
-.wine-buffet-card li::before,
-.wine-reserve__copy li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.65em;
-  width: 0.34rem;
-  height: 0.34rem;
-  background: var(--gold);
-  transform: rotate(45deg);
-}
-
-.wine-buffet__note {
-  max-width: 760px;
-  margin: clamp(1.7rem, 3vw, 2.5rem) auto 0;
-  color: rgba(43, 21, 18, 0.68);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  text-align: center;
-}
-
 .wine-reserve {
   background:
     radial-gradient(circle at 86% 22%, rgba(198, 161, 91, 0.18), transparent 26%),
     linear-gradient(180deg, rgba(255, 250, 242, 0.98), rgba(248, 244, 236, 0.94));
-}
-
-.wine-reserve__layout {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: start;
-}
-
-.wine-reserve__copy {
-  position: sticky;
-  top: 104px;
-  padding: clamp(1.4rem, 2.6vw, 2rem);
-  border-left: 1px solid rgba(198, 161, 91, 0.58);
-}
-
-.wine-reserve__copy h2 {
-  margin: 0 0 1.2rem;
-  color: var(--burgundy);
-  font-size: clamp(2.3rem, 4.5vw, 4.4rem);
-  font-weight: 400;
-  line-height: 1;
-}
-
-.wine-reserve__copy p:not(.eyebrow) {
-  margin: 0 0 1.3rem;
-  color: rgba(43, 21, 18, 0.72);
-  line-height: 1.8;
-}
-
-.wine-form {
-  position: relative;
-  display: grid;
-  gap: 1rem;
-  padding: clamp(1.35rem, 3vw, 2.2rem);
-  background:
-    linear-gradient(135deg, rgba(255, 253, 248, 0.94), rgba(248, 244, 236, 0.76)),
-    radial-gradient(circle at top left, rgba(198, 161, 91, 0.18), transparent 34%);
-  border: 1px solid rgba(198, 161, 91, 0.62);
-  box-shadow:
-    0 30px 80px rgba(20, 9, 7, 0.14),
-    inset 0 1px 0 rgba(255, 253, 248, 0.82);
-}
-
-.wine-form__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.wine-form__field,
-.wine-form__checkbox {
-  display: grid;
-  gap: 0.45rem;
-  color: var(--wine);
-  font-size: 0.86rem;
-  letter-spacing: 0.06em;
-}
-
-.wine-form__checkbox {
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  color: rgba(43, 21, 18, 0.76);
-  line-height: 1.6;
-}
-
-.wine-form__checkbox input {
-  width: 1rem;
-  height: 1rem;
-  margin-top: 0.25rem;
-  accent-color: var(--burgundy);
-}
-
-.wine-form__checkbox--required {
-  color: var(--wine);
-  font-weight: 700;
-}
-
-.wine-form__note {
-  margin: 0;
-  color: rgba(43, 21, 18, 0.66);
-  font-size: 0.88rem;
-  line-height: 1.6;
-}
-
-.wine-form__submit {
-  justify-self: start;
-  margin-inline: 0;
-}
-
-.wine-form__submit:disabled {
-  cursor: wait;
-  opacity: 0.72;
-}
-
-.wine-form__status {
-  min-height: 1.4em;
-  margin: 0;
-  color: rgba(43, 21, 18, 0.7);
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-.wine-form__status--success {
-  color: var(--olive);
-}
-
-.wine-form__status--error {
-  color: var(--burgundy);
 }
 
 input,
@@ -1593,25 +1159,6 @@ footer p,
     object-position: 40% center;
   }
 
-  .menu-layout {
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: clamp(1.1rem, 2.6vw, 2rem);
-  }
-
-  .menu-sidebar {
-    align-self: stretch;
-  }
-
-  .menu-categories {
-    top: 98px;
-    gap: 0.9rem;
-    padding-left: 1rem;
-  }
-
-  .menu-categories a {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-  }
 }
 
 @media (max-width: 768px) {
@@ -1700,103 +1247,6 @@ footer p,
     filter: blur(14px) saturate(0.9);
   }
 
-  .menu-layout {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 1rem;
-  }
-
-  .menu-sidebar {
-    z-index: 20;
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 clamp(1.1rem, 3.5vw, 1.55rem);
-    padding: 0;
-  }
-
-  .menu-categories {
-    top: 76px;
-    flex-direction: row;
-    gap: 0.65rem;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-    padding: 0.7rem 0.8rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    border: 1px solid rgba(198, 161, 91, 0.42);
-    background:
-      linear-gradient(135deg, rgba(255, 253, 248, 0.86), rgba(248, 244, 236, 0.68)),
-      radial-gradient(circle at top left, rgba(198, 161, 91, 0.16), transparent 36%);
-    box-shadow:
-      0 14px 34px rgba(77, 16, 39, 0.09),
-      inset 0 1px 0 rgba(255, 253, 248, 0.82);
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-    white-space: nowrap;
-    backdrop-filter: blur(12px);
-  }
-
-  .menu-categories::-webkit-scrollbar {
-    display: none;
-  }
-
-  .menu-categories a {
-    flex: 0 0 auto;
-    min-height: 40px;
-    padding: 0.1rem 0.85rem 0;
-    border: 1px solid rgba(198, 161, 91, 0.2);
-    background:
-      linear-gradient(135deg, rgba(255, 253, 248, 0.68), rgba(248, 244, 236, 0.36));
-    box-shadow:
-      inset 0 1px 0 rgba(255, 253, 248, 0.56),
-      0 8px 18px rgba(77, 16, 39, 0.035);
-    scroll-snap-align: start;
-    font-size: 0.72rem;
-    letter-spacing: 0.11em;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .menu-categories a::before {
-    left: 50%;
-    top: auto;
-    bottom: 0.3rem;
-    width: 0;
-    height: 2px;
-    transform: translateX(-50%);
-    transition: width 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .menu-categories a:hover,
-  .menu-categories a:focus-visible,
-  .menu-categories a.is-active {
-    transform: none;
-  }
-
-  .menu-categories a:hover,
-  .menu-categories a:focus-visible {
-    border-color: rgba(198, 161, 91, 0.52);
-    color: var(--burgundy);
-  }
-
-  .menu-categories a.is-active {
-    border-color: rgba(198, 161, 91, 0.78);
-    background:
-      linear-gradient(135deg, rgba(255, 253, 248, 0.86), rgba(248, 244, 236, 0.58));
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 253, 248, 0.45),
-      0 10px 24px rgba(77, 16, 39, 0.08);
-  }
-
-  .menu-categories a.is-active::before {
-    width: calc(100% - 1.1rem);
-    height: 2px;
-  }
-
-  .menu-content,
   #menu section,
   #menu article {
     width: 100%;
@@ -1899,56 +1349,6 @@ footer p,
     margin-inline: 0;
   }
 
-  .section-space-reservation {
-    padding-block: 0 5rem;
-  }
-
-  .wine-hero {
-    padding-top: 112px;
-  }
-
-  .wine-hero::after {
-    inset: 10px;
-  }
-
-  .wine-hero__media {
-    inset: auto -36% -20% auto;
-    width: min(86vw, 380px);
-    opacity: 0.42;
-  }
-
-  .wine-hero__content {
-    padding: 1.45rem 0 1.45rem 1.15rem;
-  }
-
-  .wine-hero__content h1 {
-    max-width: 9.8em;
-    font-size: clamp(2.55rem, 12vw, 4rem);
-  }
-
-  .wine-details__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .wine-detail {
-    min-height: 132px;
-  }
-
-  .wine-buffet__grid,
-  .wine-reserve__layout,
-  .wine-form__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .wine-reserve__copy {
-    position: relative;
-    top: auto;
-  }
-
-  .wine-form__submit {
-    justify-self: stretch;
-  }
-
   footer::before {
     background-position: center;
     opacity: 0.5;
@@ -1986,35 +1386,6 @@ footer p,
     letter-spacing: 0.18em;
   }
 
-  .wine-hero__content {
-    padding-left: 1rem;
-  }
-
-  .wine-details__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .wine-detail {
-    min-height: 0;
-  }
-
-  .wine-section-heading {
-    text-align: left;
-  }
-
-  .wine-buffet__note {
-    text-align: left;
-  }
-
-  .wine-form {
-    padding: 1.15rem;
-  }
-
-  .wine-form__checkbox {
-    font-size: 0.82rem;
-    letter-spacing: 0.03em;
-  }
-
   #story .story-panel,
   #story-preview .story-panel,
   #zahle .story-panel {
@@ -2032,16 +1403,6 @@ footer p,
   .story-image {
     aspect-ratio: 4 / 3;
     border-radius: 18px;
-  }
-
-  .menu-categories {
-    gap: 0.75rem;
-    padding-inline: 0.75rem;
-  }
-
-  .menu-categories a {
-    min-height: 40px;
-    font-size: 0.68rem;
   }
 
   #menu section {

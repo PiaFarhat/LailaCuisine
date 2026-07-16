@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import About from "../components/About";
-import Container from "../components/Container";
+import PageBanner from "../components/PageBanner";
 import ZahleStory from "../components/ZahleStory";
 
 export const metadata: Metadata = {
@@ -11,12 +11,13 @@ export const metadata: Metadata = {
 export default function StoryPage() {
   return (
     <>
-      <section className="page-intro section-space relative pt-[120px] text-center">
-        <Container className="relative z-[2]">
-          <p className="eyebrow mb-4">Our Story</p>
-          <h1>Our Story</h1>
-        </Container>
-      </section>
+      <PageBanner
+        eyebrow="Our Story"
+        title="From Zahle, With Love"
+        description="A story shaped by family tables, Lebanese traditions, and the warm spirit of Zahle."
+        backgroundImage="/images/ladyofzahle.png"
+        backgroundPosition="left 62%"
+      />
       <About />
       <ZahleStory />
     </>
