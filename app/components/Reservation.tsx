@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
-import { Alert, Button, Select, Textarea } from "@material-tailwind/react";
+import { Alert, Button, Textarea } from "@material-tailwind/react";
 import FormField from "./FormField";
 
 type ReservationField = "name" | "email" | "phone" | "date" | "time" | "guests";
@@ -75,11 +75,7 @@ const messageSlotClass = "min-h-[1.25rem] text-[0.78rem] leading-[1.35]";
 const inputClass =
   "min-h-[52px] rounded-none border border-[rgba(198,161,91,0.42)] bg-[rgba(255,253,248,0.96)] px-4 py-3 text-[1rem] text-[var(--charcoal)] shadow-[inset_0_1px_0_rgba(255,253,248,0.9)] transition-[border-color,box-shadow,background-color] duration-200 ease-out placeholder:text-[rgba(43,33,24,0.44)] hover:border-[rgba(198,161,91,0.64)] focus:border-[var(--gold)] focus:bg-[var(--ivory)] focus:outline-none focus:shadow-[0_0_0_4px_rgba(198,161,91,0.16)] data-[error=true]:border-[var(--burgundy)]";
 const fullWidthFieldClass = `${fieldClass} md:col-span-2`;
-const selectTriggerClass = `${inputClass} flex items-center justify-between text-left`;
-const selectListClass =
-  "z-[120] max-h-[min(18rem,70vh)] overflow-y-auto rounded-none border border-[rgba(198,161,91,0.42)] bg-[var(--ivory)] p-1 text-[var(--charcoal)] shadow-[0_18px_45px_rgba(43,21,18,0.16)]";
-const selectOptionClass =
-  "rounded-none px-3 py-2 text-left text-[0.95rem] text-[var(--charcoal)] transition-[background-color,color] duration-200 ease-out hover:bg-[rgba(198,161,91,0.16)] focus:bg-[rgba(198,161,91,0.16)] data-[selected=true]:bg-[rgba(106,30,58,0.1)] data-[selected=true]:text-[var(--burgundy)]";
+const selectClass = `${inputClass} appearance-none bg-[linear-gradient(45deg,transparent_50%,var(--wine)_50%),linear-gradient(135deg,var(--wine)_50%,transparent_50%),linear-gradient(to_right,rgba(198,161,91,0.32),rgba(198,161,91,0.32))] bg-[length:7px_7px,7px_7px,1px_1.7rem] bg-[position:calc(100%-1.35rem)_50%,calc(100%-0.95rem)_50%,calc(100%-2.55rem)_50%] bg-no-repeat pr-12`;
 const alertClass =
   "mb-4 rounded-none border border-[rgba(106,30,58,0.22)] bg-[rgba(106,30,58,0.08)] px-4 py-3 text-[0.9rem] font-semibold leading-[1.5] text-[var(--burgundy)] shadow-none";
 const buttonClass =
@@ -163,7 +159,7 @@ export default function Reservation() {
         className="absolute inset-0 z-[-3] h-full w-full object-cover object-center opacity-[0.16] saturate-[0.85] mix-blend-multiply"
       />
 
-      <div className="relative w-[min(860px,92vw)] overflow-hidden border border-[rgba(198,161,91,0.4)] bg-[linear-gradient(135deg,rgba(255,253,248,0.98),rgba(248,244,236,0.93))] p-[clamp(1.6rem,3.4vw,3rem)] shadow-[0_20px_58px_rgba(43,21,18,0.12),inset_0_1px_0_rgba(255,253,248,0.9)] max-md:z-[2] max-md:mx-auto max-md:w-[min(92%,42rem)]">
+      <div className="reservation-panel relative w-[min(860px,92vw)] overflow-hidden border border-[rgba(198,161,91,0.4)] bg-[linear-gradient(135deg,rgba(255,253,248,0.98),rgba(248,244,236,0.93))] p-[clamp(1.6rem,3.4vw,3rem)] shadow-[0_20px_58px_rgba(43,21,18,0.12),inset_0_1px_0_rgba(255,253,248,0.9)] max-md:z-[2] max-md:mx-auto max-md:w-[min(92%,42rem)]">
         <p className="eyebrow mb-3">Book Your Table</p>
         <h2 className="mb-6">Reserve Your Evening</h2>
 
@@ -196,43 +192,23 @@ export default function Reservation() {
             />
           ))}
 
-          <div className={fieldClass}>
-            <label id="specialDish-label">Special Dish Request</label>
-            <Select
+          <div className={fullWidthFieldClass}>
+            <label htmlFor="specialDish-field">Special Dish Request</label>
+            <select
+              id="specialDish-field"
               name="specialDish"
               value={specialDish}
-              onValueChange={setSpecialDish}
-              placement="bottom-start"
-              aria-labelledby="specialDish-label"
+              className={selectClass}
+              onChange={(event) => setSpecialDish(event.currentTarget.value)}
             >
-              <Select.Trigger
-                className={selectTriggerClass}
-                placeholder="No special dish"
-              />
-              <Select.List className={selectListClass}>
-                <Select.Option className={selectOptionClass} value="">
-                  No special dish
-                </Select.Option>
-                <Select.Option className={selectOptionClass} value="fweregh">
-                  Fweregh
-                </Select.Option>
-                <Select.Option className={selectOptionClass} value="sayadiyeh">
-                  Sayadiyeh
-                </Select.Option>
-                <Select.Option className={selectOptionClass} value="stuffed-lamb">
-                  Stuffed Lamb
-                </Select.Option>
-                <Select.Option className={selectOptionClass} value="makloubeh">
-                  Makloubeh
-                </Select.Option>
-                <Select.Option className={selectOptionClass} value="moghrabieh">
-                  Moghrabieh
-                </Select.Option>
-                <Select.Option className={selectOptionClass} value="ouzi">
-                  Ouzi
-                </Select.Option>
-              </Select.List>
-            </Select>
+              <option value="">No special dish</option>
+              <option value="fweregh">Fweregh</option>
+              <option value="sayadiyeh">Sayadiyeh</option>
+              <option value="stuffed-lamb">Stuffed Lamb</option>
+              <option value="makloubeh">Makloubeh</option>
+              <option value="moghrabieh">Moghrabieh</option>
+              <option value="ouzi">Ouzi</option>
+            </select>
             <span className={messageSlotClass} aria-hidden="true">
               &nbsp;
             </span>

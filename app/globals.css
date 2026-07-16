@@ -236,7 +236,7 @@ section p {
 #home a,
 #zahle a,
 #contact .contact-actions a,
-#reservation button,
+#reservation button[type="submit"],
 .route-cta {
   position: relative;
   display: inline-flex;
@@ -265,7 +265,7 @@ section p {
 #home a::before,
 #zahle a::before,
 #contact .contact-actions a::before,
-#reservation button::before,
+#reservation button[type="submit"]::before,
 .route-cta::before {
   content: "";
   width: 0.42rem;
@@ -279,7 +279,7 @@ section p {
 #home a::after,
 #zahle a::after,
 #contact .contact-actions a::after,
-#reservation button::after,
+#reservation button[type="submit"]::after,
 .route-cta::after {
   content: "";
   position: absolute;
@@ -301,7 +301,7 @@ section p {
 #home a:active,
 #zahle a:active,
 #contact .contact-actions a:active,
-#reservation button:active,
+#reservation button[type="submit"]:active,
 .route-cta:active {
   background: linear-gradient(135deg, #3a0b1d, #250511);
   border-color: rgba(198, 161, 91, 0.74);
@@ -316,7 +316,7 @@ section p {
   #home a:not(:last-child):hover,
   #contact .contact-actions a:nth-child(1):hover,
   #contact .contact-actions a:nth-child(3):hover,
-  #reservation button:hover,
+  #reservation button[type="submit"]:hover,
   .route-cta:hover {
     background: linear-gradient(135deg, #4d1027, #2b0615);
     border-color: rgba(198, 161, 91, 0.92);
@@ -1342,7 +1342,7 @@ footer p,
   #home a,
   #zahle a,
   #contact .contact-actions a,
-  #reservation button,
+  #reservation button[type="submit"],
   .route-cta {
     width: 100%;
     min-height: 50px;
@@ -1556,7 +1556,7 @@ footer p,
   #home a:hover,
   #zahle a:hover,
   #contact .contact-actions a:hover,
-  #reservation button:hover,
+  #reservation button[type="submit"]:hover,
   .route-cta:hover,
   article:hover {
     transform: none !important;
