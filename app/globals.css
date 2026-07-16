@@ -609,6 +609,22 @@ section p {
   }
 }
 
+@media (max-width: 767px) {
+  .featured-dishes-swiper {
+    --swiper-pagination-bottom: 0.35rem;
+  }
+
+  .featured-dishes-swiper .swiper {
+    padding-inline: 0;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1160px) {
+  .featured-dishes-swiper {
+    --swiper-navigation-sides-offset: -1.35rem;
+  }
+}
+
 main.overflow-hidden {
   overflow-x: clip;
   overflow-y: visible;

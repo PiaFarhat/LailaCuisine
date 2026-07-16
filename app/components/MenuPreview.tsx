@@ -19,12 +19,12 @@ export default function MenuPreview() {
     <>
       <section
         id="menu-preview"
-        className="relative isolate px-0 py-[clamp(5rem,8vw,8rem)] text-center"
+        className="relative isolate px-0 py-[clamp(4rem,8vw,8rem)] text-center max-[480px]:py-[3.4rem]"
       >
         <Container className="relative z-[2]">
           <p className="eyebrow mb-4">Generous Lebanese Table</p>
           <h2 className="mb-5">Menu</h2>
-          <p className="mx-auto mt-0 mb-[clamp(1.8rem,3vw,2.6rem)] max-w-[42rem] text-[0.98rem] leading-[1.75] text-[rgba(43,33,24,0.72)]">
+          <p className="mx-auto mt-0 mb-[clamp(1.8rem,3vw,2.6rem)] max-w-[42rem] text-[0.98rem] leading-[1.75] text-[rgba(43,33,24,0.72)] max-[480px]:mb-6 max-[480px]:text-[0.94rem]">
             Explore a small selection from Laila&apos;s Lebanese table, then open
             the full menu for every mezze, grill, seafood plate, and dessert.
           </p>
