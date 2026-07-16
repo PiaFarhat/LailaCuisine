@@ -6,6 +6,13 @@ import FeaturedDishesSwiper from "./FeaturedDishesSwiper";
 
 const featuredMenuItems = getFeaturedMenuItems();
 const featuredSpecialOrders = specialOrderItems.slice(0, 2);
+const specialOrderCardClass =
+  "relative z-[1] mx-auto min-h-0 w-full overflow-hidden p-[1.35rem_1.4rem_1.22rem] text-left transition-[transform,border-color,box-shadow] duration-[260ms] ease-out max-md:p-[1.15rem_1.1rem] max-md:text-center";
+const specialOrderTitleClass =
+  "mb-2 text-[clamp(1.75rem,3vw,2.8rem)] font-normal text-[var(--gold)]";
+const specialOrderTextClass = "m-0 text-[rgba(255,253,248,0.9)]";
+const specialOrderMetaClass =
+  "mt-[0.95rem] inline-block border border-[rgba(198,161,91,0.34)] bg-[rgba(198,161,91,0.18)] px-[0.65rem] py-[0.34rem] text-[0.83rem] font-bold leading-[1.25] tracking-[0.045em] text-[var(--ivory)]";
 
 export default function MenuPreview() {
   return (
@@ -47,10 +54,10 @@ export default function MenuPreview() {
                 title={item.title}
                 description={item.description}
                 meta={item.price}
-                className="relative z-[1] mx-auto min-h-0 w-full overflow-hidden p-[1.35rem_1.4rem_1.22rem] text-left transition-[transform,border-color,box-shadow] duration-[260ms] ease-out max-md:p-[1.15rem_1.1rem] max-md:text-center"
-                titleClassName="mb-2 text-[clamp(1.75rem,3vw,2.8rem)] font-normal text-[var(--gold)]"
-                textClassName="m-0 text-[rgba(255,253,248,0.9)]"
-                metaClassName="mt-[0.95rem] inline-block border border-[rgba(198,161,91,0.34)] bg-[rgba(198,161,91,0.18)] px-[0.65rem] py-[0.34rem] text-[0.83rem] font-bold leading-[1.25] tracking-[0.045em] text-[var(--ivory)]"
+                className={specialOrderCardClass}
+                titleClassName={specialOrderTitleClass}
+                textClassName={specialOrderTextClass}
+                metaClassName={specialOrderMetaClass}
                 headingLevel="h3"
               />
             ))}

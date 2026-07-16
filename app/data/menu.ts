@@ -2,6 +2,11 @@ export type MenuItem = {
   name: string;
   description: string;
   price: string;
+  image?: {
+    src: string;
+    alt: string;
+    objectPosition?: string;
+  };
 };
 
 export type MenuCategory = {
@@ -28,6 +33,10 @@ export const menuCategories: MenuCategory[] = [
         name: "Hummus",
         description: "Chickpea dip with tahini, lemon, and olive oil.",
         price: "$4",
+        image: {
+          src: "/images/homos.png",
+          alt: "Hummus topped with olive oil and Lebanese garnish",
+        },
       },
       {
         name: "Baba Ghanouj",
@@ -43,6 +52,10 @@ export const menuCategories: MenuCategory[] = [
         name: "Tabbouleh",
         description: "Parsley, tomato, bulgur, lemon, and olive oil.",
         price: "$5",
+        image: {
+          src: "/images/tabouleh.png",
+          alt: "Fresh tabbouleh salad with parsley and tomatoes",
+        },
       },
       {
         name: "Fattoush",
@@ -86,6 +99,10 @@ export const menuCategories: MenuCategory[] = [
         name: "Kebbeh Krass",
         description: "Fried bulgur shells stuffed with spiced meat and onions.",
         price: "6 pcs - $8",
+        image: {
+          src: "/images/kebbeh kras.png",
+          alt: "Crisp fried kebbeh krass served on a plate",
+        },
       },
       {
         name: "Batata Harra",
@@ -109,6 +126,10 @@ export const menuCategories: MenuCategory[] = [
         name: "Chicken Tawook",
         description: "Marinated grilled chicken skewers with garlic sauce.",
         price: "1/2 kg $12 - 1 kg $22",
+        image: {
+          src: "/images/Tawook.png",
+          alt: "Grilled chicken tawook skewers with Lebanese sides",
+        },
       },
       {
         name: "Kafta",
@@ -147,6 +168,10 @@ export const menuCategories: MenuCategory[] = [
         name: "Grilled Shrimps",
         description: "Shrimps grilled with garlic, lemon, and Lebanese spices.",
         price: "$22",
+        image: {
+          src: "/images/grilled shrimps.png",
+          alt: "Grilled shrimps with lemon and Lebanese seasoning",
+        },
       },
       {
         name: "Fried Calamari",
@@ -164,6 +189,10 @@ export const menuCategories: MenuCategory[] = [
         name: "Djej aa Riz",
         description: "Chicken and rice served with nuts and warm spices.",
         price: "$18",
+        image: {
+          src: "/images/djej aa rez.png",
+          alt: "Djej aa riz chicken and rice with toasted nuts",
+        },
       },
       {
         name: "Wara2 Aarish bi Lahme",

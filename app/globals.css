@@ -517,19 +517,23 @@ section p {
 
 .featured-dishes-swiper {
   --swiper-theme-color: var(--burgundy);
-  --swiper-navigation-sides-offset: -0.25rem;
-  --swiper-pagination-bottom: 0;
+  --swiper-navigation-sides-offset: -3.1rem;
+  --swiper-pagination-bottom: 0.15rem;
 }
 
 .featured-dishes-swiper .swiper {
   padding-inline: 0.05rem;
 }
 
+.featured-dishes-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
 .featured-dishes-swiper .swiper-button-next,
 .featured-dishes-swiper .swiper-button-prev {
   display: none;
-  width: 2.35rem;
-  height: 2.35rem;
+  width: 2.45rem;
+  height: 2.45rem;
   border: 1px solid rgba(198, 161, 91, 0.52);
   background: rgba(255, 253, 248, 0.9);
   color: var(--burgundy);
@@ -558,8 +562,17 @@ section p {
   outline: none;
 }
 
+.featured-dishes-swiper .swiper-button-next:active,
+.featured-dishes-swiper .swiper-button-prev:active {
+  background: var(--wine);
+  border-color: var(--wine);
+}
+
 .featured-dishes-swiper .swiper-button-disabled {
-  opacity: 0.35;
+  cursor: default;
+  opacity: 0.32;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .featured-dishes-swiper .swiper-pagination {
@@ -570,8 +583,8 @@ section p {
 }
 
 .featured-dishes-swiper .swiper-pagination-bullet {
-  width: 0.48rem;
-  height: 0.48rem;
+  width: 0.5rem;
+  height: 0.5rem;
   margin: 0 !important;
   border: 1px solid rgba(198, 161, 91, 0.58);
   background: rgba(255, 253, 248, 0.82);
@@ -583,13 +596,13 @@ section p {
 }
 
 .featured-dishes-swiper .swiper-pagination-bullet-active {
-  width: 1.35rem;
+  width: 1.45rem;
   border-color: var(--burgundy);
   border-radius: 999px;
   background: var(--burgundy);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .featured-dishes-swiper .swiper-button-next,
   .featured-dishes-swiper .swiper-button-prev {
     display: flex;
