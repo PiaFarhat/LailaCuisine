@@ -515,6 +515,87 @@ section p {
     linear-gradient(180deg, rgba(255, 253, 248, 0.78), rgba(248, 244, 236, 0.58) 34%, rgba(255, 250, 242, 0.88) 88%, rgba(77, 16, 39, 0.26));
 }
 
+.featured-dishes-swiper {
+  --swiper-theme-color: var(--burgundy);
+  --swiper-navigation-sides-offset: -0.25rem;
+  --swiper-pagination-bottom: 0;
+}
+
+.featured-dishes-swiper .swiper {
+  padding-inline: 0.05rem;
+}
+
+.featured-dishes-swiper .swiper-button-next,
+.featured-dishes-swiper .swiper-button-prev {
+  display: none;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid rgba(198, 161, 91, 0.52);
+  background: rgba(255, 253, 248, 0.9);
+  color: var(--burgundy);
+  box-shadow: 0 12px 30px rgba(77, 16, 39, 0.12);
+  transition:
+    background-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.featured-dishes-swiper .swiper-button-next::after,
+.featured-dishes-swiper .swiper-button-prev::after {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.featured-dishes-swiper .swiper-button-next:hover,
+.featured-dishes-swiper .swiper-button-prev:hover,
+.featured-dishes-swiper .swiper-button-next:focus-visible,
+.featured-dishes-swiper .swiper-button-prev:focus-visible {
+  border-color: var(--gold);
+  background: var(--burgundy);
+  color: var(--ivory);
+  box-shadow: 0 16px 34px rgba(77, 16, 39, 0.18);
+  outline: none;
+}
+
+.featured-dishes-swiper .swiper-button-disabled {
+  opacity: 0.35;
+}
+
+.featured-dishes-swiper .swiper-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+}
+
+.featured-dishes-swiper .swiper-pagination-bullet {
+  width: 0.48rem;
+  height: 0.48rem;
+  margin: 0 !important;
+  border: 1px solid rgba(198, 161, 91, 0.58);
+  background: rgba(255, 253, 248, 0.82);
+  opacity: 1;
+  transition:
+    width 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.featured-dishes-swiper .swiper-pagination-bullet-active {
+  width: 1.35rem;
+  border-color: var(--burgundy);
+  border-radius: 999px;
+  background: var(--burgundy);
+}
+
+@media (min-width: 768px) {
+  .featured-dishes-swiper .swiper-button-next,
+  .featured-dishes-swiper .swiper-button-prev {
+    display: flex;
+  }
+}
+
 main.overflow-hidden {
   overflow-x: clip;
   overflow-y: visible;

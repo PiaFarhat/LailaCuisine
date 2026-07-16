@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { menuCategories, specialOrderItems } from "../data/menu";
+import { getFeaturedMenuItems, specialOrderItems } from "../data/menu";
 import Container from "./Container";
 import ContentCard from "./ContentCard";
+import FeaturedDishesSwiper from "./FeaturedDishesSwiper";
 
-const featuredMenuItems = menuCategories
-  .flatMap((category) => category.items)
-  .slice(0, 4);
+const featuredMenuItems = getFeaturedMenuItems();
 const featuredSpecialOrders = specialOrderItems.slice(0, 2);
 
 export default function MenuPreview() {
@@ -18,17 +17,12 @@ export default function MenuPreview() {
         <Container className="relative z-[2]">
           <p className="eyebrow mb-4">Generous Lebanese Table</p>
           <h2 className="mb-5">Menu</h2>
+          <p className="mx-auto mt-0 mb-[clamp(1.8rem,3vw,2.6rem)] max-w-[42rem] text-[0.98rem] leading-[1.75] text-[rgba(43,33,24,0.72)]">
+            Explore a small selection from Laila&apos;s Lebanese table, then open
+            the full menu for every mezze, grill, seafood plate, and dessert.
+          </p>
 
-          <div className="mx-auto grid max-w-[980px] grid-cols-2 gap-[clamp(0.9rem,1.5vw,1.2rem)] text-left max-md:grid-cols-1">
-            {featuredMenuItems.map((item) => (
-              <ContentCard
-                key={item.name}
-                title={item.name}
-                description={item.description}
-                meta={item.price}
-              />
-            ))}
-          </div>
+          <FeaturedDishesSwiper items={featuredMenuItems} />
 
           <Link className="route-cta mt-8" href="/menu">
             View Full Menu

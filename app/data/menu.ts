@@ -295,3 +295,25 @@ export const specialOrderItems: SpecialOrderItem[] = [
     price: "Starting from $40",
   },
 ];
+
+export const featuredMenuItemNames = [
+  "Hummus",
+  "Tabbouleh",
+  "Kebbeh Krass",
+  "Chicken Tawook",
+  "Grilled Shrimps",
+  "Djej aa Riz",
+] as const;
+
+export const getFeaturedMenuItems = () => {
+  const itemsByName = new Map(
+    menuCategories.flatMap((category) =>
+      category.items.map((item) => [item.name, item] as const),
+    ),
+  );
+
+  return featuredMenuItemNames.flatMap((name) => {
+    const item = itemsByName.get(name);
+    return item ? [item] : [];
+  });
+};
