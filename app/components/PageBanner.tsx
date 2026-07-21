@@ -4,8 +4,12 @@ type PageBannerProps = {
   eyebrow?: string;
   title: string;
   description?: string;
+  image?: string;
+  imageAlt?: string;
   backgroundImage?: string;
   backgroundPosition?: string;
+  alignment?: "left" | "center" | "right";
+  overlayStrength?: "soft" | "medium" | "strong";
   bottomFade?: "cream" | "softCream" | "dark" | "none";
   variant?: "default" | "reservation" | "wine";
 };
@@ -14,13 +18,30 @@ export default function PageBanner({
   eyebrow,
   title,
   description,
+  image,
+  imageAlt,
   backgroundImage,
   backgroundPosition = "center",
+  alignment = "left",
+  overlayStrength = "medium",
   bottomFade = "cream",
   variant = "default",
 }: PageBannerProps) {
   const isReservation = variant === "reservation";
   const isWine = variant === "wine";
+  const bannerImage = image ?? backgroundImage;
+  const contentAlignment =
+    alignment === "center"
+      ? "mx-auto text-center border-l-0 border-t"
+      : alignment === "right"
+        ? "ml-auto border-l-0 border-r text-right"
+        : "border-l";
+  const overlayClass =
+    overlayStrength === "strong"
+      ? "bg-[linear-gradient(90deg,rgba(58,11,29,0.86),rgba(77,16,39,0.68)_50%,rgba(58,11,29,0.78))]"
+      : overlayStrength === "soft"
+        ? "bg-[linear-gradient(90deg,rgba(58,11,29,0.66),rgba(77,16,39,0.42)_52%,rgba(58,11,29,0.58))]"
+        : "bg-[linear-gradient(90deg,rgba(58,11,29,0.78),rgba(77,16,39,0.56)_48%,rgba(58,11,29,0.72))]";
   const sectionClass = [
     "relative isolate overflow-hidden text-[var(--ivory)]",
     isReservation
@@ -33,7 +54,7 @@ export default function PageBanner({
 
   return (
     <section className={sectionClass}>
-      {backgroundImage && (
+      {bannerImage && (
         <div
           className={[
             "pointer-events-none absolute inset-0 z-[-4] bg-cover bg-center saturate-[0.92]",
@@ -44,21 +65,23 @@ export default function PageBanner({
                 : "opacity-[0.34]",
           ].join(" ")}
           style={{
-            backgroundImage: `url("${backgroundImage}")`,
+            backgroundImage: `url("${bannerImage}")`,
             backgroundPosition,
           }}
-          aria-hidden="true"
+          role={imageAlt ? "img" : undefined}
+          aria-label={imageAlt}
+          aria-hidden={imageAlt ? undefined : "true"}
         />
       )}
-      {backgroundImage && (
+      {bannerImage && (
         <div
           className={[
             "pointer-events-none absolute inset-0 z-[-3]",
             isReservation
               ? "bg-[linear-gradient(90deg,rgba(55,10,25,0.9)_0%,rgba(70,16,34,0.78)_42%,rgba(75,22,38,0.62)_72%,rgba(52,20,27,0.52)_100%)]"
               : isWine
-                ? "bg-[linear-gradient(to_bottom,rgba(55,10,25,0.78)_0%,rgba(70,16,34,0.68)_52%,rgba(107,62,66,0.38)_82%,rgba(248,244,236,0.12)_94%,var(--cream)_100%),linear-gradient(90deg,rgba(58,11,29,0.72),rgba(77,16,39,0.42)_52%,rgba(58,11,29,0.5))]"
-                : "bg-[linear-gradient(90deg,rgba(58,11,29,0.78),rgba(77,16,39,0.56)_48%,rgba(58,11,29,0.72))]",
+              ? "bg-[linear-gradient(to_bottom,rgba(55,10,25,0.78)_0%,rgba(70,16,34,0.68)_52%,rgba(107,62,66,0.38)_82%,rgba(248,244,236,0.12)_94%,var(--cream)_100%),linear-gradient(90deg,rgba(58,11,29,0.72),rgba(77,16,39,0.42)_52%,rgba(58,11,29,0.5))]"
+                : overlayClass,
           ].join(" ")}
           aria-hidden="true"
         />
@@ -103,7 +126,7 @@ export default function PageBanner({
             "relative border-l p-[clamp(1.75rem,3.5vw,3rem)] max-md:py-[1.45rem] max-md:pr-0 max-md:pl-[1.15rem] max-[480px]:pl-4",
             isReservation
               ? "max-w-[760px] border-[rgba(198,161,91,0.28)] py-[clamp(1.25rem,2.6vw,2rem)] pl-[clamp(48px,10vw,180px)]"
-              : "max-w-[840px] border-[rgba(198,161,91,0.32)]",
+              : `max-w-[840px] border-[rgba(198,161,91,0.32)] max-md:pr-4 ${contentAlignment}`,
           ].join(" ")}
         >
           {eyebrow && (
@@ -123,7 +146,7 @@ export default function PageBanner({
               "m-0 font-normal text-[var(--ivory)]",
                 isReservation
                 ? "max-w-[760px] text-[clamp(4rem,6.4vw,6.9rem)] leading-[0.92] tracking-[-0.025em] max-md:text-[clamp(2.9rem,12vw,4.35rem)]"
-                : "max-w-[10em] text-[clamp(2.65rem,7vw,6.2rem)] leading-[0.96] max-md:max-w-[9.8em] max-md:text-[clamp(2.45rem,12vw,4rem)]",
+                : "max-w-[10em] text-[clamp(2.65rem,7vw,6.2rem)] leading-[0.96] max-md:max-w-[8.6em] max-md:text-[clamp(2rem,8vw,2.3rem)]",
             ].join(" ")}
           >
             {title}
@@ -134,7 +157,7 @@ export default function PageBanner({
                 "mt-5 font-normal",
                 isReservation
                   ? "max-w-[650px] text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.6] text-[rgba(255,247,232,0.86)]"
-                  : "max-w-[42rem] text-[clamp(1.02rem,1.55vw,1.18rem)] leading-[1.85] text-[var(--ivory)]",
+                  : "max-w-[42rem] text-[clamp(0.98rem,1.55vw,1.18rem)] leading-[1.85] text-[var(--ivory)] max-md:max-w-[18rem] max-md:text-[0.94rem]",
               ].join(" ")}
             >
               {description}

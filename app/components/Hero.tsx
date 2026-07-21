@@ -27,7 +27,7 @@ export default function Hero() {
       <Container className="relative max-md:z-[2] max-md:mt-[-2rem]">
         <div className="hero-panel relative mx-auto overflow-hidden p-[clamp(2rem,4vw,3.5rem)] text-center max-md:px-[1.15rem] max-md:py-[1.65rem]">
           <p className="eyebrow mb-4">Homemade Lebanese Restaurant</p>
-          <h1 className="m-0 text-[clamp(3rem,7.5vw,6.4rem)] font-normal leading-[0.96] tracking-[0.12em] text-[var(--burgundy)] max-md:text-[clamp(2.75rem,15vw,4.8rem)] max-md:tracking-[0.07em]">
+          <h1 className="m-0 text-[clamp(3rem,7.5vw,6.4rem)] font-normal leading-[0.96] tracking-[0.12em] text-[var(--burgundy)] max-md:text-[clamp(2.65rem,12vw,4.15rem)] max-md:tracking-[0.035em]">
             Laila Cuisine
           </h1>
           <p className="mx-auto mt-[1.6rem] mb-[2.2rem] max-w-[520px] text-[rgba(43,33,24,0.84)] max-md:mt-[1.2rem] max-md:mb-6">

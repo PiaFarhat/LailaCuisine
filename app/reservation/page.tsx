@@ -14,9 +14,8 @@ export default function ReservationPage() {
         eyebrow="Book Your Table"
         title="Reserve Your Evening"
         description="Plan a Lebanese table for family, friends, and pre-requested dishes."
-        backgroundImage="/images/table.png"
-        bottomFade="none"
-        variant="reservation"
+        image="/images/table.png"
+        imageAlt="A Lebanese dining table set for an evening reservation"
       />
       <Reservation />
     </>

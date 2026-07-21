@@ -29,11 +29,7 @@ export default function MenuPreview() {
             the full menu for every mezze, grill, seafood plate, and dessert.
           </p>
 
-          <FeaturedDishesSwiper items={featuredMenuItems} />
-
-          <Link className="route-cta mt-8" href="/menu">
-            View Full Menu
-          </Link>
+          <FeaturedDishesSwiper items={featuredMenuItems} showMenuAction />
         </Container>
       </section>
 
@@ -63,9 +59,11 @@ export default function MenuPreview() {
             ))}
           </div>
 
-          <Link className="route-cta mt-8" href="/menu#special-orders">
-            View Special Orders
-          </Link>
+          <div className="mt-9 flex justify-center pb-12 max-[480px]:px-3">
+            <Link className="route-cta max-[480px]:w-full" href="/menu#special-orders">
+              View Special Orders
+            </Link>
+          </div>
         </Container>
       </section>
     </>

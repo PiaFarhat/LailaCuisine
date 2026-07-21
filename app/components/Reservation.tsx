@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { Alert, Button, Textarea } from "@material-tailwind/react";
 import FormField from "./FormField";
 
 type ReservationField = "name" | "email" | "phone" | "date" | "time" | "guests";
 type ReservationErrors = Partial<Record<ReservationField, string>>;
+type ReservationValues = Record<ReservationField, string>;
+type ReservationTouched = Partial<Record<ReservationField, boolean>>;
 type ReservationInput = {
   name: ReservationField;
   label: string;
@@ -40,15 +42,15 @@ const reservationFields: ReservationInput[] = [
     name: "phone",
     label: "Phone Number",
     type: "tel",
-    placeholder: "+961 XX XXX XXX",
+    placeholder: "961XXXXXXXX",
     autoComplete: "tel",
-    inputMode: "tel",
-    pattern: "[0-9+() -]{7,}",
+    inputMode: "numeric",
+    pattern: "[0-9]{7,15}",
     dataLabel: "Phone number",
   },
   {
     name: "date",
-    label: "Date",
+    label: "Reservation Date",
     type: "date",
     dataLabel: "Reservation date",
   },
@@ -69,8 +71,61 @@ const reservationFields: ReservationInput[] = [
   },
 ];
 
+const initialValues: ReservationValues = {
+  name: "",
+  email: "",
+  phone: "",
+  date: "",
+  time: "",
+  guests: "",
+};
+
+const reservationTimeOptions = [
+  { value: "12:00", label: "12:00 PM" },
+  { value: "12:30", label: "12:30 PM" },
+  { value: "13:00", label: "1:00 PM" },
+  { value: "13:30", label: "1:30 PM" },
+  { value: "14:00", label: "2:00 PM" },
+  { value: "14:30", label: "2:30 PM" },
+  { value: "15:00", label: "3:00 PM" },
+  { value: "15:30", label: "3:30 PM" },
+  { value: "16:00", label: "4:00 PM" },
+  { value: "16:30", label: "4:30 PM" },
+  { value: "17:00", label: "5:00 PM" },
+  { value: "17:30", label: "5:30 PM" },
+  { value: "18:00", label: "6:00 PM" },
+  { value: "18:30", label: "6:30 PM" },
+  { value: "19:00", label: "7:00 PM" },
+  { value: "19:30", label: "7:30 PM" },
+  { value: "20:00", label: "8:00 PM" },
+  { value: "20:30", label: "8:30 PM" },
+  { value: "21:00", label: "9:00 PM" },
+  { value: "21:30", label: "9:30 PM" },
+  { value: "22:00", label: "10:00 PM" },
+  { value: "22:30", label: "10:30 PM" },
+  { value: "23:00", label: "11:00 PM" },
+  { value: "23:30", label: "11:30 PM" },
+  { value: "00:00", label: "12:00 AM" },
+];
+
+const digitsOnly = (value: string) => value.replace(/\D/g, "");
+
+const formatDateInputValue = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+const getToday = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+};
+
 const fieldClass =
-  "grid gap-2 text-[0.84rem] font-semibold tracking-[0.055em] text-[var(--wine)]";
+  "grid min-w-0 gap-2 text-[0.84rem] font-semibold tracking-[0.055em] text-[var(--wine)]";
 const messageSlotClass = "min-h-[1.25rem] text-[0.78rem] leading-[1.35]";
 const inputClass =
   "min-h-[52px] rounded-none border border-[rgba(198,161,91,0.42)] bg-[rgba(255,253,248,0.96)] px-4 py-3 text-[1rem] text-[var(--charcoal)] shadow-[inset_0_1px_0_rgba(255,253,248,0.9)] transition-[border-color,box-shadow,background-color] duration-200 ease-out placeholder:text-[rgba(43,33,24,0.44)] hover:border-[rgba(198,161,91,0.64)] focus:border-[var(--gold)] focus:bg-[var(--ivory)] focus:outline-none focus:shadow-[0_0_0_4px_rgba(198,161,91,0.16)] data-[error=true]:border-[var(--burgundy)]";
@@ -79,29 +134,61 @@ const selectClass = `${inputClass} appearance-none bg-[linear-gradient(45deg,tra
 const alertClass =
   "mb-4 rounded-none border border-[rgba(106,30,58,0.22)] bg-[rgba(106,30,58,0.08)] px-4 py-3 text-[0.9rem] font-semibold leading-[1.5] text-[var(--burgundy)] shadow-none";
 const buttonClass =
-  "!m-0 !min-h-[50px] !rounded-none !border !border-[var(--burgundy)] !bg-[var(--burgundy)] !px-7 !py-3 !text-[0.82rem] !font-bold !uppercase !tracking-[0.12em] !text-[var(--ivory)] !shadow-none !transition-[background-color,border-color,box-shadow,color,opacity] !duration-200 !ease-out hover:!border-[var(--wine)] hover:!bg-[var(--wine)] hover:!shadow-[0_14px_30px_rgba(77,16,39,0.2)] motion-safe:hover:!-translate-y-0 disabled:!cursor-not-allowed disabled:!opacity-[0.72]";
+  "!m-0 !min-h-[50px] !w-full sm:!w-auto !whitespace-normal !rounded-none !border !border-[var(--burgundy)] !bg-[var(--burgundy)] !px-7 !py-3 !text-center !text-[0.82rem] !font-bold !uppercase !tracking-[0.12em] !text-[var(--ivory)] !shadow-none !transition-[background-color,border-color,box-shadow,color,opacity] !duration-200 !ease-out hover:!border-[var(--wine)] hover:!bg-[var(--wine)] hover:!shadow-[0_14px_30px_rgba(77,16,39,0.2)] motion-safe:hover:!-translate-y-0 disabled:!cursor-not-allowed disabled:!opacity-[0.72]";
 
 export default function Reservation() {
+  const [values, setValues] = useState<ReservationValues>(initialValues);
+  const [touched, setTouched] = useState<ReservationTouched>({});
   const [errors, setErrors] = useState<ReservationErrors>({});
+  const [submitted, setSubmitted] = useState(false);
   const [specialDish, setSpecialDish] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
+  const [minDate, setMinDate] = useState("");
 
-  const getError = (input: HTMLInputElement) => {
-    if (input.name === "phone" && input.value.replace(/\D/g, "").length < 7) {
-      return "Enter a valid phone number with at least 7 digits.";
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setMinDate(formatDateInputValue(getToday()));
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  const validateField = (name: ReservationField, value: string) => {
+    const field = reservationFields.find((item) => item.name === name);
+    const label = field?.dataLabel ?? "This field";
+    const trimmedValue = value.trim();
+
+    if (!trimmedValue) return `${label} is required.`;
+    if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedValue)) {
+      return "Enter a valid email address.";
     }
-    if (input.validity.valid) return "";
-    if (input.validity.valueMissing) return `${input.dataset.label} is required.`;
-    if (input.validity.typeMismatch) return "Enter a valid email address.";
-    if (input.validity.patternMismatch) return "Enter a valid phone number with at least 7 digits.";
-    if (input.validity.rangeUnderflow) return "Please enter at least one guest.";
-    return "Please check this field.";
+    if (name === "phone" && !/^\d{7,15}$/.test(trimmedValue)) {
+      return "Enter a valid phone number using 7 to 15 digits.";
+    }
+    if (name === "date" && minDate && trimmedValue < minDate) {
+      return "Choose today or a future reservation date.";
+    }
+    if (
+      name === "time" &&
+      !reservationTimeOptions.some((option) => option.value === trimmedValue)
+    ) {
+      return "Choose a reservation time between 12:00 PM and 12:00 AM.";
+    }
+    if (name === "guests" && Number(trimmedValue) < 1) {
+      return "Please enter at least one guest.";
+    }
+    return "";
   };
 
-  const updateFieldError = (input: HTMLInputElement) => {
-    const name = input.name as ReservationField;
-    const error = getError(input);
+  const validateForm = (nextValues: ReservationValues) =>
+    reservationFields.reduce<ReservationErrors>((nextErrors, field) => {
+      const error = validateField(field.name, nextValues[field.name]);
+      if (error) nextErrors[field.name] = error;
+      return nextErrors;
+    }, {});
 
+  const updateFieldError = (name: ReservationField, value: string) => {
+    const error = validateField(name, value);
     setErrors((current) => {
       if (!error && !current[name]) return current;
       if (!error) {
@@ -114,34 +201,44 @@ export default function Reservation() {
     });
   };
 
-  const handleFieldChange = (event: FormEvent<HTMLInputElement>) => {
-    const input = event.currentTarget;
-    if (errors[input.name as ReservationField]) updateFieldError(input);
+  const handleFieldChange = (name: ReservationField, value: string) => {
+    const nextValue = name === "phone" ? digitsOnly(value) : value;
+
+    setValues((current) => ({ ...current, [name]: nextValue }));
+    if (errors[name] && !validateField(name, nextValue)) {
+      setErrors((current) => {
+        const nextErrors = { ...current };
+        delete nextErrors[name];
+        return nextErrors;
+      });
+    }
+  };
+
+  const handleFieldBlur = (name: ReservationField) => {
+    setTouched((current) => ({ ...current, [name]: true }));
+    updateFieldError(name, values[name]);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    const nextErrors: ReservationErrors = {};
-    let firstInvalidField: HTMLInputElement | undefined;
-
-    reservationFields.forEach(({ name }) => {
-      const input = event.currentTarget.elements.namedItem(name);
-      if (!(input instanceof HTMLInputElement)) return;
-
-      const error = getError(input);
-      if (!error) return;
-
-      nextErrors[name] = error;
-      firstInvalidField ??= input;
-    });
+    const nextErrors = validateForm(values);
+    const firstErrorName = Object.keys(nextErrors)[0] as ReservationField | undefined;
 
     if (Object.keys(nextErrors).length) {
       event.preventDefault();
+      setSubmitted(true);
       setErrors(nextErrors);
       setStatusMessage("Please correct the highlighted fields.");
-      firstInvalidField?.focus();
+      if (firstErrorName) {
+        const field =
+          event.currentTarget.querySelector<HTMLElement>(
+            `[data-form-field="${firstErrorName}"]`,
+          ) ?? event.currentTarget.elements.namedItem(firstErrorName);
+        if (field instanceof HTMLElement) field.focus();
+      }
       return;
     }
 
+    setSubmitted(true);
     setErrors({});
     setStatusMessage("");
   };
@@ -149,17 +246,18 @@ export default function Reservation() {
   return (
     <section
       id="reservation"
-      className="relative isolate grid place-items-center overflow-hidden bg-[linear-gradient(rgba(247,240,227,0.95),rgba(247,240,227,0.99))] px-[clamp(1.25rem,7vw,6rem)] py-[clamp(3.25rem,5.5vw,5.5rem)] [scroll-margin-top:82px] max-md:block max-md:px-0 max-md:py-14"
+      className="relative isolate grid place-items-center overflow-hidden bg-[linear-gradient(rgba(247,240,227,0.95),rgba(247,240,227,0.99))] px-4 py-12 [scroll-margin-top:82px] sm:px-6 sm:py-16 lg:px-8 lg:py-[clamp(3.25rem,5.5vw,5.5rem)]"
     >
       <Image
         src="/images/table.png"
         alt="Romantic illustrated Lebanese terrace prepared for reservation"
         width={1600}
         height={900}
-        className="absolute inset-0 z-[-3] h-full w-full object-cover object-center opacity-[0.16] saturate-[0.85] mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 z-[-3] h-full w-full object-cover object-center opacity-[0.16] saturate-[0.85] mix-blend-multiply"
+        aria-hidden="true"
       />
 
-      <div className="reservation-panel relative w-[min(860px,92vw)] overflow-hidden border border-[rgba(198,161,91,0.4)] bg-[linear-gradient(135deg,rgba(255,253,248,0.98),rgba(248,244,236,0.93))] p-[clamp(1.6rem,3.4vw,3rem)] shadow-[0_20px_58px_rgba(43,21,18,0.12),inset_0_1px_0_rgba(255,253,248,0.9)] max-md:z-[2] max-md:mx-auto max-md:w-[min(92%,42rem)]">
+      <div className="reservation-panel relative z-[2] mx-auto w-full max-w-[860px] overflow-hidden border border-[rgba(198,161,91,0.4)] bg-[linear-gradient(135deg,rgba(255,253,248,0.98),rgba(248,244,236,0.93))] p-[clamp(1.25rem,4vw,3rem)] shadow-[0_20px_58px_rgba(43,21,18,0.12),inset_0_1px_0_rgba(255,253,248,0.9)]">
         <p className="eyebrow mb-3">Book Your Table</p>
         <h2 className="mb-6">Reserve Your Evening</h2>
 
@@ -174,23 +272,72 @@ export default function Reservation() {
         </div>
 
         <form
-          className="relative z-[1] grid grid-cols-2 gap-x-4 gap-y-2 max-md:grid-cols-1"
+          className="relative z-[1] grid grid-cols-1 gap-6 md:grid-cols-2"
           onSubmit={handleSubmit}
           noValidate
         >
-          {reservationFields.map((field) => (
-            <FormField
-              key={field.name}
-              {...field}
-              required
-              error={errors[field.name]}
-              className={fieldClass}
-              inputClassName={inputClass}
-              messageClassName={messageSlotClass}
-              onBlur={(event) => updateFieldError(event.currentTarget)}
-              onInput={handleFieldChange}
-            />
-          ))}
+          {reservationFields.map((field) => {
+            const fieldMin = field.name === "date" ? minDate : field.min;
+            const visibleError =
+              touched[field.name] || submitted ? errors[field.name] : undefined;
+
+            if (field.name === "time") {
+              return (
+                <div key={field.name} className={fieldClass}>
+                  <label htmlFor="time-field">{field.label}</label>
+                  <select
+                    id="time-field"
+                    name={field.name}
+                    value={values.time}
+                    required
+                    className={selectClass}
+                    aria-invalid={Boolean(visibleError)}
+                    aria-describedby={visibleError ? "time-error" : undefined}
+                    data-form-field={field.name}
+                    data-error={Boolean(visibleError)}
+                    onBlur={() => handleFieldBlur(field.name)}
+                    onChange={(event) => handleFieldChange(field.name, event.target.value)}
+                  >
+                    <option value="">Choose a time</option>
+                    {reservationTimeOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  <div className={messageSlotClass}>
+                    {visibleError ? (
+                      <span
+                        id="time-error"
+                        className="form-error inline-block transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:translate-y-0"
+                        role="alert"
+                      >
+                        {visibleError}
+                      </span>
+                    ) : (
+                      <span aria-hidden="true">&nbsp;</span>
+                    )}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <FormField
+                key={field.name}
+                {...field}
+                min={fieldMin}
+                required
+                value={values[field.name]}
+                error={visibleError}
+                className={fieldClass}
+                inputClassName={inputClass}
+                messageClassName={messageSlotClass}
+                onBlur={() => handleFieldBlur(field.name)}
+                onChange={(event) => handleFieldChange(field.name, event.target.value)}
+              />
+            );
+          })}
 
           <div className={fullWidthFieldClass}>
             <label htmlFor="specialDish-field">Special Dish Request</label>

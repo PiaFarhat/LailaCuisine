@@ -15,7 +15,8 @@ export default function MenuPage() {
         eyebrow="Our Kitchen"
         title="A Menu Made for Sharing"
         description="Explore Lebanese mezze, warm dishes, family recipes, and flavors prepared for the whole table."
-        backgroundImage="/images/food.png"
+        image="/images/food.png"
+        imageAlt="Lebanese dishes arranged for sharing"
       />
       <Menu />
       <SpecialOrders />

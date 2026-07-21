@@ -8,14 +8,14 @@ export type BuffetCategory = {
 export const wineTastingConfig = {
   eventName: "Saturday Wine at Laila's",
   route: "/wine-tasting",
-  recurrenceText: "Every Saturday",
+  recurrenceText: "Every Saturday, 6 PM - 12 AM",
   reservationRequirement: "Reservation required",
   seatingNote: "Limited seating",
   maxGuests: 8,
   contactEmail: siteConfig.email,
   contactEmailHref: siteConfig.emailHref,
   details: [
-    "Every Saturday",
+    "Every Saturday, 6 PM - 12 AM",
     "Reservation required",
     "Limited seating",
     "Lebanese wine tasting",

@@ -12,6 +12,7 @@ import type { MenuItem } from "../data/menu";
 
 type FeaturedDishesSwiperProps = {
   items: MenuItem[];
+  showMenuAction?: boolean;
 };
 
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
@@ -107,7 +108,10 @@ function FeaturedDishCard({ item }: { item: MenuItem }) {
   );
 }
 
-export default function FeaturedDishesSwiper({ items }: FeaturedDishesSwiperProps) {
+export default function FeaturedDishesSwiper({
+  items,
+  showMenuAction = false,
+}: FeaturedDishesSwiperProps) {
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
@@ -128,10 +132,10 @@ export default function FeaturedDishesSwiper({ items }: FeaturedDishesSwiperProp
         touchRatio={1.05}
         keyboard={{ enabled: true }}
         navigation
-        pagination={{ clickable: true }}
+        pagination={{ clickable: true, el: ".featured-dishes-pagination" }}
         a11y={swiperA11y}
         breakpoints={swiperBreakpoints}
-        className="pb-12 max-md:!overflow-hidden md:!overflow-visible"
+        className="max-md:!overflow-hidden md:!overflow-visible"
       >
         {items.map((item) => (
           <SwiperSlide key={item.name} className="!h-auto">
@@ -139,6 +143,17 @@ export default function FeaturedDishesSwiper({ items }: FeaturedDishesSwiperProp
           </SwiperSlide>
         ))}
       </Swiper>
+      <div
+        className="featured-dishes-pagination mt-7 flex min-h-6 items-center justify-center"
+        aria-label="Featured dishes pagination"
+      />
+      {showMenuAction && (
+        <div className="mt-6 flex justify-center pb-4 max-[480px]:px-3">
+          <Link className="route-cta max-[480px]:w-full" href="/menu">
+            View Full Menu
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

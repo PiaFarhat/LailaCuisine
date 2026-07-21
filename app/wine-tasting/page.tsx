@@ -17,10 +17,11 @@ export default function WineTastingPage() {
   return (
     <>
       <PageBanner
-        eyebrow="A Saturday Tradition"
-        title="Wine, Mezze, and Evenings in Zahle"
+        eyebrow="Saturday Experience"
+        title="Wine Tasting in the Spirit of Zahle"
         description="Join us every Saturday for a guided tasting of Lebanese wines accompanied by seasonal mezze and traditional flavors."
-        backgroundImage="/images/wine tasting.png"
+        image="/images/wine tasting.png"
+        imageAlt="Lebanese wine tasting table with mezze"
         variant="wine"
       />
 
@@ -86,8 +87,8 @@ export default function WineTastingPage() {
 
       <section className="wine-reserve relative isolate py-[clamp(4rem,7vw,7rem)]">
         <Container>
-          <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-start gap-[clamp(1.5rem,4vw,4rem)] max-md:grid-cols-1">
-            <div className="sticky top-[104px] border-l border-[rgba(198,161,91,0.58)] p-[clamp(1.4rem,2.6vw,2rem)] max-md:relative max-md:top-auto">
+          <div className="mx-auto grid max-w-[1120px] grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-start gap-[clamp(1.5rem,4vw,4rem)] max-md:grid-cols-1">
+            <div className="border-l border-[rgba(198,161,91,0.58)] p-[clamp(1.4rem,2.6vw,2rem)]">
               <p className="eyebrow">{wineTastingConfig.recurrenceText}</p>
               <h2 className="m-0 mb-[1.2rem] text-[clamp(2.3rem,4.5vw,4.4rem)] font-normal leading-none text-[var(--burgundy)]">
                 Reserve Your Tasting

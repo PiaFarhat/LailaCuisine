@@ -15,7 +15,7 @@ export const navigationItems: NavigationItem[] = [
   { label: "Menu", href: "/menu" },
   { label: "Reservation", href: "/reservation" },
   { label: "Wine Tasting", href: "/wine-tasting" },
-  { label: "Contact", href: "/#contact", sectionId: "contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const siteConfig = {

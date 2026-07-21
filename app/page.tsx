@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Contact from "./components/Contact";
 import GatheringBanner from "./components/GatheringBanner";
 import Hero from "./components/Hero";
 import MenuPreview from "./components/MenuPreview";
@@ -19,7 +18,6 @@ export default function Home() {
       <MenuPreview />
       <GatheringBanner />
       <ReservationPreview />
-      <Contact />
     </>
   );
 }
