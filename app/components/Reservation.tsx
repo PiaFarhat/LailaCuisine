@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { Alert, Button, Textarea } from "@material-tailwind/react";
+import Container from "./Container";
 import FormField from "./FormField";
 
 type ReservationField = "name" | "email" | "phone" | "date" | "time" | "guests";
@@ -246,7 +247,7 @@ export default function Reservation() {
   return (
     <section
       id="reservation"
-      className="relative isolate grid place-items-center overflow-hidden bg-[linear-gradient(rgba(247,240,227,0.95),rgba(247,240,227,0.99))] px-4 py-12 [scroll-margin-top:82px] sm:px-6 sm:py-16 lg:px-8 lg:py-[clamp(3.25rem,5.5vw,5.5rem)]"
+      className="relative isolate grid place-items-center overflow-hidden bg-[linear-gradient(rgba(247,240,227,0.95),rgba(247,240,227,0.99))] py-12 [scroll-margin-top:82px] sm:py-16 lg:py-[clamp(3.25rem,5.5vw,5.5rem)]"
     >
       <Image
         src="/images/table.png"
@@ -257,135 +258,137 @@ export default function Reservation() {
         aria-hidden="true"
       />
 
-      <div className="reservation-panel relative z-[2] mx-auto w-full max-w-[860px] overflow-hidden border border-[rgba(198,161,91,0.4)] bg-[linear-gradient(135deg,rgba(255,253,248,0.98),rgba(248,244,236,0.93))] p-[clamp(1.25rem,4vw,3rem)] shadow-[0_20px_58px_rgba(43,21,18,0.12),inset_0_1px_0_rgba(255,253,248,0.9)]">
-        <p className="eyebrow mb-3">Book Your Table</p>
-        <h2 className="mb-6">Reserve Your Evening</h2>
+      <Container className="relative z-[2]">
+        <div className="reservation-panel mx-auto w-full max-w-[860px] overflow-hidden border border-[rgba(198,161,91,0.4)] bg-[linear-gradient(135deg,rgba(255,253,248,0.98),rgba(248,244,236,0.93))] p-[clamp(1.25rem,4vw,3rem)] shadow-[0_20px_58px_rgba(43,21,18,0.12),inset_0_1px_0_rgba(255,253,248,0.9)]">
+          <p className="eyebrow mb-3">Book Your Table</p>
+          <h2 className="mb-6">Reserve Your Evening</h2>
 
-        <div className="min-h-[3.75rem]" role="status" aria-live="polite">
-          <Alert
-            open={Boolean(statusMessage)}
-            className={alertClass}
-            role="alert"
+          <div className="min-h-[3.75rem]" role="status" aria-live="polite">
+            <Alert
+              open={Boolean(statusMessage)}
+              className={alertClass}
+              role="alert"
+            >
+              {statusMessage}
+            </Alert>
+          </div>
+
+          <form
+            className="relative z-[1] grid grid-cols-1 gap-6 md:grid-cols-2"
+            onSubmit={handleSubmit}
+            noValidate
           >
-            {statusMessage}
-          </Alert>
-        </div>
+            {reservationFields.map((field) => {
+              const fieldMin = field.name === "date" ? minDate : field.min;
+              const visibleError =
+                touched[field.name] || submitted ? errors[field.name] : undefined;
 
-        <form
-          className="relative z-[1] grid grid-cols-1 gap-6 md:grid-cols-2"
-          onSubmit={handleSubmit}
-          noValidate
-        >
-          {reservationFields.map((field) => {
-            const fieldMin = field.name === "date" ? minDate : field.min;
-            const visibleError =
-              touched[field.name] || submitted ? errors[field.name] : undefined;
-
-            if (field.name === "time") {
-              return (
-                <div key={field.name} className={fieldClass}>
-                  <label htmlFor="time-field">{field.label}</label>
-                  <select
-                    id="time-field"
-                    name={field.name}
-                    value={values.time}
-                    required
-                    className={selectClass}
-                    aria-invalid={Boolean(visibleError)}
-                    aria-describedby={visibleError ? "time-error" : undefined}
-                    data-form-field={field.name}
-                    data-error={Boolean(visibleError)}
-                    onBlur={() => handleFieldBlur(field.name)}
-                    onChange={(event) => handleFieldChange(field.name, event.target.value)}
-                  >
-                    <option value="">Choose a time</option>
-                    {reservationTimeOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  <div className={messageSlotClass}>
-                    {visibleError ? (
-                      <span
-                        id="time-error"
-                        className="form-error inline-block transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:translate-y-0"
-                        role="alert"
-                      >
-                        {visibleError}
-                      </span>
-                    ) : (
-                      <span aria-hidden="true">&nbsp;</span>
-                    )}
+              if (field.name === "time") {
+                return (
+                  <div key={field.name} className={fieldClass}>
+                    <label htmlFor="time-field">{field.label}</label>
+                    <select
+                      id="time-field"
+                      name={field.name}
+                      value={values.time}
+                      required
+                      className={selectClass}
+                      aria-invalid={Boolean(visibleError)}
+                      aria-describedby={visibleError ? "time-error" : undefined}
+                      data-form-field={field.name}
+                      data-error={Boolean(visibleError)}
+                      onBlur={() => handleFieldBlur(field.name)}
+                      onChange={(event) =>
+                        handleFieldChange(field.name, event.target.value)
+                      }
+                    >
+                      <option value="">Choose a time</option>
+                      {reservationTimeOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className={messageSlotClass}>
+                      {visibleError ? (
+                        <span
+                          id="time-error"
+                          className="form-error inline-block transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:translate-y-0"
+                          role="alert"
+                        >
+                          {visibleError}
+                        </span>
+                      ) : (
+                        <span aria-hidden="true">&nbsp;</span>
+                      )}
+                    </div>
                   </div>
-                </div>
+                );
+              }
+
+              return (
+                <FormField
+                  key={field.name}
+                  {...field}
+                  min={fieldMin}
+                  required
+                  value={values[field.name]}
+                  error={visibleError}
+                  className={fieldClass}
+                  inputClassName={inputClass}
+                  messageClassName={messageSlotClass}
+                  onBlur={() => handleFieldBlur(field.name)}
+                  onChange={(event) =>
+                    handleFieldChange(field.name, event.target.value)
+                  }
+                />
               );
-            }
+            })}
 
-            return (
-              <FormField
-                key={field.name}
-                {...field}
-                min={fieldMin}
-                required
-                value={values[field.name]}
-                error={visibleError}
-                className={fieldClass}
-                inputClassName={inputClass}
-                messageClassName={messageSlotClass}
-                onBlur={() => handleFieldBlur(field.name)}
-                onChange={(event) => handleFieldChange(field.name, event.target.value)}
+            <div className={fullWidthFieldClass}>
+              <label htmlFor="specialDish-field">Special Dish Request</label>
+              <select
+                id="specialDish-field"
+                name="specialDish"
+                value={specialDish}
+                className={selectClass}
+                onChange={(event) => setSpecialDish(event.currentTarget.value)}
+              >
+                <option value="">No special dish</option>
+                <option value="fweregh">Fweregh</option>
+                <option value="sayadiyeh">Sayadiyeh</option>
+                <option value="stuffed-lamb">Stuffed Lamb</option>
+                <option value="makloubeh">Makloubeh</option>
+                <option value="moghrabieh">Moghrabieh</option>
+                <option value="ouzi">Ouzi</option>
+              </select>
+              <span className={messageSlotClass} aria-hidden="true">
+                &nbsp;
+              </span>
+            </div>
+
+            <div className={fullWidthFieldClass}>
+              <label htmlFor="reservation-notes">Notes</label>
+              <Textarea
+                id="reservation-notes"
+                className={`${inputClass} min-h-[128px] resize-y`}
+                name="notes"
+                placeholder="Tell us about allergies, preferred seating, or special requests"
               />
-            );
-          })}
+              <span className={messageSlotClass} aria-hidden="true">
+                &nbsp;
+              </span>
+            </div>
 
-          <div className={fullWidthFieldClass}>
-            <label htmlFor="specialDish-field">Special Dish Request</label>
-            <select
-              id="specialDish-field"
-              name="specialDish"
-              value={specialDish}
-              className={selectClass}
-              onChange={(event) => setSpecialDish(event.currentTarget.value)}
-            >
-              <option value="">No special dish</option>
-              <option value="fweregh">Fweregh</option>
-              <option value="sayadiyeh">Sayadiyeh</option>
-              <option value="stuffed-lamb">Stuffed Lamb</option>
-              <option value="makloubeh">Makloubeh</option>
-              <option value="moghrabieh">Moghrabieh</option>
-              <option value="ouzi">Ouzi</option>
-            </select>
-            <span className={messageSlotClass} aria-hidden="true">
-              &nbsp;
-            </span>
-          </div>
-
-          <div className={fullWidthFieldClass}>
-            <label htmlFor="reservation-notes">Notes</label>
-            <Textarea
-              id="reservation-notes"
-              className={`${inputClass} min-h-[128px] resize-y`}
-              name="notes"
-              placeholder="Tell us about allergies, preferred seating, or special requests"
-            />
-            <span className={messageSlotClass} aria-hidden="true">
-              &nbsp;
-            </span>
-          </div>
-
-          <div className="md:col-span-2">
-            <div className="min-h-[1.4rem]" aria-live="polite" role="status" />
-            <Button
-              className={buttonClass}
-              type="submit"
-              aria-busy="false"
-            >
-              Submit Reservation
-            </Button>
-          </div>
-        </form>
-      </div>
+            <div className="md:col-span-2">
+              <div className="min-h-[1.4rem]" aria-live="polite" role="status" />
+              <Button className={buttonClass} type="submit" aria-busy="false">
+                Submit Reservation
+              </Button>
+            </div>
+          </form>
+        </div>
+      </Container>
     </section>
   );
 }

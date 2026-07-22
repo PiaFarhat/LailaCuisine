@@ -28,7 +28,7 @@ const swiperA11y = {
 };
 const swiperBreakpoints = {
   480: {
-    slidesPerView: 1.5,
+    slidesPerView: 1,
     spaceBetween: 18,
   },
   768: {
@@ -46,11 +46,11 @@ const swiperBreakpoints = {
 };
 
 const cardClass =
-  "flex h-full min-h-[360px] flex-col overflow-hidden border border-[rgba(198,161,91,0.46)] bg-[linear-gradient(135deg,rgba(255,253,248,0.94),rgba(248,244,236,0.78)),radial-gradient(circle_at_top_left,rgba(198,161,91,0.16),transparent_34%)] p-[1.05rem] shadow-[0_18px_44px_rgba(77,16,39,0.09)] transition-[border-color,box-shadow,transform] duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[rgba(198,161,91,0.68)] hover:shadow-[0_22px_52px_rgba(77,16,39,0.12)] motion-safe:hover:-translate-y-px max-[480px]:min-h-[338px] max-[480px]:p-3";
+  "flex h-full min-h-[360px] w-full min-w-0 flex-col overflow-hidden break-words border border-[rgba(198,161,91,0.46)] bg-[linear-gradient(135deg,rgba(255,253,248,0.94),rgba(248,244,236,0.78)),radial-gradient(circle_at_top_left,rgba(198,161,91,0.16),transparent_34%)] p-[1.05rem] shadow-[0_18px_44px_rgba(77,16,39,0.09)] transition-[border-color,box-shadow,transform] duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[rgba(198,161,91,0.68)] hover:shadow-[0_22px_52px_rgba(77,16,39,0.12)] motion-safe:hover:-translate-y-px max-[480px]:min-h-[338px] max-[480px]:p-3";
 const mediaClass =
-  "relative mb-5 grid aspect-[16/9] place-items-center overflow-hidden border border-[rgba(198,161,91,0.32)] bg-[linear-gradient(135deg,rgba(106,30,58,0.92),rgba(77,16,39,0.82)),radial-gradient(circle_at_26%_18%,rgba(198,161,91,0.32),transparent_34%),radial-gradient(circle_at_76%_72%,rgba(85,107,47,0.2),transparent_30%)] max-[480px]:mb-4";
+  "relative mb-5 grid aspect-[16/9] max-w-full place-items-center overflow-hidden border border-[rgba(198,161,91,0.32)] bg-[linear-gradient(135deg,rgba(106,30,58,0.92),rgba(77,16,39,0.82)),radial-gradient(circle_at_26%_18%,rgba(198,161,91,0.32),transparent_34%),radial-gradient(circle_at_76%_72%,rgba(85,107,47,0.2),transparent_30%)] max-[480px]:mb-4";
 const imageClass =
-  "h-full w-full object-cover transition-transform duration-[520ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover:scale-[1.01]";
+  "h-full w-full max-w-full object-cover transition-transform duration-[520ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover:scale-[1.01]";
 const markerClass =
   "block h-[0.7rem] w-[0.7rem] rotate-45 border border-[rgba(255,253,248,0.58)] bg-[rgba(198,161,91,0.22)]";
 const contentClass = "flex flex-1 flex-col px-1 pb-1";
@@ -119,10 +119,10 @@ export default function FeaturedDishesSwiper({
   );
 
   return (
-    <div className="featured-dishes-swiper relative mx-auto max-w-[1040px] text-left">
+    <div className="featured-dishes-swiper relative mx-auto w-full max-w-[1040px] overflow-hidden text-left">
       <Swiper
         modules={swiperModules}
-        slidesPerView={1.1}
+        slidesPerView={1}
         spaceBetween={16}
         speed={prefersReducedMotion ? reducedMotionSpeed : normalMotionSpeed}
         grabCursor
@@ -135,10 +135,10 @@ export default function FeaturedDishesSwiper({
         pagination={{ clickable: true, el: ".featured-dishes-pagination" }}
         a11y={swiperA11y}
         breakpoints={swiperBreakpoints}
-        className="max-md:!overflow-hidden md:!overflow-visible"
+        className="!w-full !max-w-full !overflow-hidden"
       >
         {items.map((item) => (
-          <SwiperSlide key={item.name} className="!h-auto">
+          <SwiperSlide key={item.name} className="!h-auto !min-w-0 !max-w-full">
             <FeaturedDishCard item={item} />
           </SwiperSlide>
         ))}

@@ -518,12 +518,13 @@ section p {
 
 .featured-dishes-swiper {
   --swiper-theme-color: var(--burgundy);
-  --swiper-navigation-sides-offset: -3.1rem;
+  --swiper-navigation-sides-offset: 0.75rem;
   --swiper-pagination-bottom: 0.15rem;
 }
 
 .featured-dishes-swiper .swiper {
   padding-inline: 0.05rem;
+  max-width: 100%;
 }
 
 .featured-dishes-swiper .swiper-wrapper {
@@ -576,13 +577,20 @@ section p {
   pointer-events: none;
 }
 
-.featured-dishes-swiper .swiper-pagination {
+.featured-dishes-swiper .swiper-pagination,
+.featured-dishes-swiper .featured-dishes-pagination {
   position: static;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.42rem;
+  gap: 6px;
   transform: none;
+}
+
+.featured-dishes-swiper
+  .swiper-pagination-horizontal.swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  margin: 0 !important;
 }
 
 .featured-dishes-swiper .swiper-pagination-bullet {
@@ -622,9 +630,16 @@ section p {
   }
 }
 
+@media (min-width: 768px) {
+  .featured-dishes-swiper .swiper-pagination,
+  .featured-dishes-swiper .featured-dishes-pagination {
+    gap: 8px;
+  }
+}
+
 @media (min-width: 1024px) and (max-width: 1160px) {
   .featured-dishes-swiper {
-    --swiper-navigation-sides-offset: -1.35rem;
+    --swiper-navigation-sides-offset: 0.5rem;
   }
 }
 
@@ -1861,8 +1876,23 @@ footer p,
   }
 
   .reservation-banner__content::before {
-    right: auto;
-    left: -0.42rem;
+    display: none;
+  }
+
+  .reservation-banner__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .reservation-banner__eyebrow::before {
+    content: "";
+    width: 0.72rem;
+    height: 0.72rem;
+    flex: 0 0 auto;
+    border: 1px solid var(--gold);
+    background: rgba(198, 161, 91, 0.2);
+    transform: rotate(45deg);
   }
 
   .reservation-banner__title {
